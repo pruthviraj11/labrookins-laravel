@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeBannerController;
 use App\Http\Controllers\HomeLinkController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuickLinkController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ItineraryController;
 use App\Http\Controllers\OrderDetailController;
@@ -549,7 +550,7 @@ Route::prefix('store')->middleware(['auth'])->group(function () {
 });
 
 Route::prefix('app')->middleware('auth')->group(function () {
-  Route::get('reset-password', [AboutUsController::class, 'index'])->name('reset-password.index');
-  Route::post('reset-password/save', [AboutUsController::class, 'save'])->name('reset-password.save');
+  Route::get('reset-password', [ResetPasswordController::class, 'index'])->name('reset-password.index');
+  Route::post('reset-password/save', [ResetPasswordController::class, 'save'])->name('reset-password.save');
 });
 // Route::get('/home', [Analytics::class, 'index'])->name('home');

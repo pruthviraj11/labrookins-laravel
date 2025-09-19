@@ -48,11 +48,11 @@
       "icon": "menu-icon tf-icons ti ti-users",
       "slug": "home",
       "submenu": [
-         {
-      "url": "home/home_banner/list",
-      "name": "Home Banner",
-      "slug": "home.home_banner.list"
-    },
+        {
+          "url": "home/home_banner/list",
+          "name": "Home Banner",
+          "slug": "home.home_banner.list"
+        },
         {
           "url": "/home/about",
           "name": "About",
@@ -92,7 +92,7 @@
           "name": "Categories List",
           "slug": "categories.list"
         },
-         {
+        {
           "url": "store/products/list",
           "name": "Products List",
           "slug": "store.products.list"
@@ -139,11 +139,11 @@
       "name": "Settings",
       "slug": "settings.index"
     },
-     {
+    {
       "url": "app/reset-password",
-      "icon": "menu-icon tf-icons ti ti-info-circle",
+      "icon": "menu-icon tf-icons ti ti-lock",
       "name": "Reset Password",
-      "slug": "about-us.index"
+      "slug": "reset-password.index"
     }
   ]
 }
