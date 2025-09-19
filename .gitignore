@@ -43,7 +43,7 @@ package-lock.log
 /storage/framework/views/*
 /storage/logs/*
 /bootstrap/cache/*.php
-
+storage
 # PHPUnit
 .phpunit.cache
 
@@ -89,3 +89,4 @@ Thumbs.db
 .env.staging
 .env.production.local
 node_modules
+bootstrap
