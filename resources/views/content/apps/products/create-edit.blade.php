@@ -118,9 +118,9 @@
                 </div>
 
                 <div class="form-check form-switch mb-3">
+                    <label class="form-check-label">Status</label>
                     <input class="form-check-input" type="checkbox" name="status" value="1"
                         {{ isset($product) && $product->status ? 'checked' : '' }}>
-                    <label class="form-check-label">Active</label>
                 </div>
 
                 <button type="submit" class="btn btn-primary">{{ isset($product) ? 'Update' : 'Save' }}</button>

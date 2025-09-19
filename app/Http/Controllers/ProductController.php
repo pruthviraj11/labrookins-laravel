@@ -28,12 +28,12 @@ class ProductController extends Controller
       return datatables()->of($this->service->getAll())
         ->addColumn('category', fn($row) => $row->category?->title ?? '-')
         ->addColumn('status', fn($row) => $row->status ? '<span class="badge bg-label-success">Active</span>' : '<span class="badge bg-label-danger">Inactive</span>')
-           ->addColumn('product_type', function ($row) {
-                if ($row->product_digital === 'yes') {
-                    return '<span class="badge text-success">Digital</span>';
-                }
-                return '<span class="badge text-danger">Physical</span>';
-            })
+        ->addColumn('product_type', function ($row) {
+          if ($row->product_digital === 'yes') {
+            return '<span class="badge text-success">Digital</span>';
+          }
+          return '<span class="badge text-danger">Physical</span>';
+        })
         ->addColumn('actions', function ($row) {
           $editUrl = route('store.products.edit', encrypt($row->id));
           $deleteUrl = route('store.products.destroy', encrypt($row->id));
@@ -51,7 +51,7 @@ class ProductController extends Controller
                     </form>
                 ';
         })
-        ->rawColumns(['status','product_type','actions'])
+        ->rawColumns(['status', 'product_type', 'actions'])
         ->make(true);
     }
   }
@@ -71,17 +71,17 @@ class ProductController extends Controller
     $data['product_description'] = $request->product_description;
     $data['product_price'] = $request->product_price;
     $data['product_discount_price'] = $request->product_discount_price;
+    $data['status'] = $request->has('status') ? 1 : 0;
 
     if ($request->hasFile('product_image')) {
       $data['product_image'] = $request->file('product_image')->store('products', 'public');
     }
     if ($request->hasFile('download_document')) {
       $data['download_document'] = $request->file('download_document')->store('products/docs', 'public');
-       $data['product_digital'] = 'yes';
+      $data['product_digital'] = 'yes';
     } else {
-        $data['product_digital'] = 'no'; // default
+      $data['product_digital'] = 'no'; // default
     }
-
     $this->service->store($data);
 
     return redirect()->route('store.products.list')->with('success', 'Product created successfully.');
@@ -104,15 +104,16 @@ class ProductController extends Controller
     $data['product_description'] = $request->product_description;
     $data['product_price'] = $request->product_price;
     $data['product_discount_price'] = $request->product_discount_price;
+    $data['status'] = $request->has('status') ? 1 : 0;
 
     if ($request->hasFile('product_image')) {
       $data['product_image'] = $request->file('product_image')->store('products', 'public');
     }
     if ($request->hasFile('download_document')) {
       $data['download_document'] = $request->file('download_document')->store('products/docs', 'public');
-        $data['product_digital'] = 'yes';
-    }else {
-        $data['product_digital'] = 'no'; // default
+      $data['product_digital'] = 'yes';
+    } else {
+      $data['product_digital'] = 'no'; // default
     }
 
     $this->service->update($encrypted_id, $data);
