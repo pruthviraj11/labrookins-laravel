@@ -83,6 +83,7 @@ Thumbs.db
 
 # Env files
 .env.local
+.env
 .env.development
 .env.testing
 .env.staging
