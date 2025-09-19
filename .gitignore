@@ -1,0 +1,90 @@
+/.phpunit.cache
+/node_modules
+
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+
+# .env
+.env.backup
+.env.production
+.phpunit.result.cache
+
+docker-compose.override.yml
+
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+package-lock.log
+/.fleet
+/.idea
+/.vscode
+
+/public/css
+/public/js
+/public/mix-manifest.json
+# But not these files...
+!/public/assets/*
+/public/assets/js
+/public/assets/css
+/public/assets/vendor
+
+# Package Lock files
+/package-lock.json
+# Laravel cache and logs
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+/bootstrap/cache/*.php
+
+# PHPUnit
+.phpunit.cache
+
+# PHP CS Fixer / CodeSniffer
+.php-cs-fixer.cache
+.php-cs-fixer.dist.php
+
+# IDE / Editors (extra safety)
+/*.swp
+*.swo
+*.swp
+*.bak
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# PHPStorm specific
+/.idea/**/workspace.xml
+/.idea/**/tasks.xml
+/.idea/**/dictionaries
+/.idea/**/shelf
+/.idea/**/dataSources/
+/.idea/**/dataSources.ids
+/.idea/**/dataSources.xml
+/.idea/**/sqlDataSources.xml
+/.idea/**/dynamic.xml
+/.idea/**/uiDesigner.xml
+/.idea/**/gradle.xml
+/.idea/**/libraries
+
+# Laravel Telescope (if you use it)
+/storage/telescope
+
+# Laravel Horizon (if you use it)
+/horizon/*.sqlite
+
+# Env files
+.env.local
+.env.development
+.env.testing
+.env.staging
+.env.production.local
+node_modules

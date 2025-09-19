@@ -1,0 +1,149 @@
+{
+  "menu": [
+    {
+      "menuHeader": "Role  & User Management"
+    },
+    {
+      "name": "Roles & Permissions",
+      "icon": "menu-icon tf-icons ti ti-settings",
+      "slug": "app-access",
+      "submenu": [
+        {
+          "url": "app/roles/list",
+          "name": "Roles",
+          "slug": "app-access-roles"
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "slug": "app-user",
+      "submenu": [
+        {
+          "url": "app/users/list",
+          "name": "Users List",
+          "slug": "app-users-list"
+        },
+        {
+          "url": "app/site-users/list",
+          "name": "Customers",
+          "icon": "users",
+          "slug": "app-site-users-list",
+          "permission": [
+            "user-list",
+            "user-create"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "app/all_page_banner/list",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "name": "All Page Banner",
+      "slug": "app-all_page_banner-list"
+    },
+    {
+      "name": "Home",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "slug": "home",
+      "submenu": [
+         {
+      "url": "home/home_banner/list",
+      "name": "Home Banner",
+      "slug": "home.home_banner.list"
+    },
+        {
+          "url": "/home/about",
+          "name": "About",
+          "slug": "home.welcome.edit"
+        },
+        {
+          "url": "/home/links",
+          "name": "Home Links",
+          "slug": "home.links.edit"
+        },
+        {
+          "url": "/home/quick-links",
+          "name": "Quick Links",
+          "slug": "home.quicklinks.edit"
+        }
+      ]
+    },
+    {
+      "url": "app/about-us",
+      "icon": "menu-icon tf-icons ti ti-info-circle",
+      "name": "About Us",
+      "slug": "about-us.index"
+    },
+    {
+      "url": "app/devotional/list",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "name": "Devotional",
+      "slug": "devotional.list"
+    },
+    {
+      "name": "Online Store",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "slug": "categories",
+      "submenu": [
+        {
+          "url": "app/categories/list",
+          "name": "Categories List",
+          "slug": "categories.list"
+        },
+         {
+          "url": "store/products/list",
+          "name": "Products List",
+          "slug": "store.products.list"
+        },
+        {
+          "url": "app/orders/list",
+          "name": "Orders",
+          "slug": "app-orders-list"
+        }
+      ]
+    },
+    {
+      "url": "schedulings",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "name": "Schedulings",
+      "slug": "schedulings.index"
+    },
+    {
+      "url": "itinerary",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "name": "Itinerary",
+      "slug": "itinerary.list"
+    },
+    {
+      "name": "Connect",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "slug": "prayer_requests",
+      "submenu": [
+        {
+          "url": "/prayer_requests",
+          "name": "Prayer Request",
+          "slug": "prayer_requests.index"
+        },
+        {
+          "url": "contacts",
+          "name": "Contacts",
+          "slug": "app-contacts-list"
+        }
+      ]
+    },
+    {
+      "url": "settings",
+      "icon": "menu-icon tf-icons ti ti-users",
+      "name": "Settings",
+      "slug": "settings.index"
+    },
+     {
+      "url": "app/reset-password",
+      "icon": "menu-icon tf-icons ti ti-info-circle",
+      "name": "Reset Password",
+      "slug": "about-us.index"
+    }
+  ]
+}
