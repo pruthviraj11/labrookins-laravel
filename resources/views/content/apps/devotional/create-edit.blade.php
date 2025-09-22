@@ -53,9 +53,27 @@
 
                 <div class="mb-3">
                     <label class="form-label">Page <span class="text-danger">*</span></label>
-                    <input type="text" name="page" class="form-control"
-                        value="{{ old('page', $devotional->page ?? '') }}">
+                    <select name="page" class="form-control form-control-lg form-control-solid" id="page">
+                        @php
+                            $options = [
+                                '' => 'Select a page',
+                                'word_for_today' => 'Word For Today',
+                                'blog' => 'Blog',
+                            ];
+                        @endphp
+
+                        @foreach ($options as $key => $value)
+                            <option value="{{ $key }}"
+                                {{ old('page', $devotional->page ?? '') == $key ? 'selected' : '' }}>
+                                {{ $value }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('page')
+                        <span class="d-block invalid-feedback">{{ $message }}</span>
+                    @enderror
                 </div>
+
 
                 <div class="mb-3">
                     <label class="form-label">Status</label>

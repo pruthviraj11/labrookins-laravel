@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ItineraryService;
 use Yajra\DataTables\Facades\DataTables;
-
+use Illuminate\Support\Facades\Storage;
 class ItineraryController extends Controller
 {
   protected $service;
@@ -58,6 +58,14 @@ class ItineraryController extends Controller
   {
     $data = $request->all();
     $data['status'] = isset($data['status']) ? 1 : 0;
+
+        // Handle image upload
+    if ($request->hasFile('image')) {
+        // Store new image on public disk
+        $path = $request->file('image')->store('itinerary_images', 'public');
+        $data['image'] = $path;
+    }
+
     $this->service->create($data);
     return redirect()->route('itinerary.list')->with('success', 'Itinerary added successfully');
   }
@@ -71,10 +79,25 @@ class ItineraryController extends Controller
 
   public function update(Request $request, $id)
   {
+    // dd($request->all());
     $id = decrypt($id);
 
     $data = $request->all();
     $data['status'] = isset($data['status']) ? 1 : 0;
+
+   $itinerary = $this->service->find($id);
+
+      // Handle image upload
+    if ($request->hasFile('image')) {
+        // Delete old image if exists
+        if ($itinerary->image && Storage::disk('public')->exists($itinerary->image)) {
+            Storage::disk('public')->delete($itinerary->image);
+        }
+
+        // Store new image on public disk
+        $path = $request->file('image')->store('itinerary_images', 'public');
+        $data['image'] = $path;
+    }
     $this->service->update($id, $data);
     return redirect()->route('itinerary.list')->with('success', 'Itinerary updated successfully');
   }
