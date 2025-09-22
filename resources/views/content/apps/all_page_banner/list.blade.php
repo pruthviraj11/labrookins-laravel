@@ -67,7 +67,7 @@
                         orderable: false,
                         render: function(data, type, row) {
                             if (data) {
-                                return `<img src="/storage/${data}" alt="banner" width="100" height="60" style="object-fit:cover;border-radius:6px;">`;
+                                return `<img src="/storage/${data}" alt="banner" width="200" height="60" style="border-radius:6px;">`;
                             }
                             return '-';
                         }

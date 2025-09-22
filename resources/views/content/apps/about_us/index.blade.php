@@ -6,12 +6,12 @@
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <style>
         #editor {
-            height: 300px;
+            height: 400px;
             /* change to any height you want */
         }
 
         .ql-editor {
-            min-height: 300px;
+            min-height: 400px;
             /* ensures typing area stays large */
         }
     </style>

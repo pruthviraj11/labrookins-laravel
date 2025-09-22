@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             <div class="mb-3">
-                <label class="form-label">Title</label>
+                <label class="form-label">Title <span class="text-danger">*</span> </label>
                 <input type="text" name="title" class="form-control" value="{{ old('title', $category->title ?? '') }}">
                 @error('title') <div class="text-danger">{{ $message }}</div> @enderror
             </div>

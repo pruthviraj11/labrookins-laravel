@@ -34,6 +34,9 @@ class HomeBannerController extends Controller
 
         return $updateBtn . " " . $deleteBtn;
       })
+       ->addColumn('created_at', function ($row) {
+        return $row->created_at ? $row->created_at->format('d M Y h:i A') : '-';
+    })
       ->addColumn('status', function ($row) {
         return $row->status
           ? '<span class="badge bg-label-success" style="color: #000 !important;">Active</span>'

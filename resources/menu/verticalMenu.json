@@ -89,12 +89,12 @@
       "submenu": [
         {
           "url": "app/categories/list",
-          "name": "Categories List",
+          "name": "Categories",
           "slug": "categories.list"
         },
         {
           "url": "store/products/list",
-          "name": "Products List",
+          "name": "Products",
           "slug": "store.products.list"
         },
         {
@@ -118,7 +118,7 @@
     },
     {
       "name": "Connect",
-      "icon": "menu-icon tf-icons ti ti-users",
+      "icon": "menu-icon tf-icons ti ti-link",
       "slug": "prayer_requests",
       "submenu": [
         {
@@ -135,7 +135,7 @@
     },
     {
       "url": "settings",
-      "icon": "menu-icon tf-icons ti ti-users",
+      "icon": "menu-icon tf-icons ti ti-settings",
       "name": "Settings",
       "slug": "settings.index"
     },

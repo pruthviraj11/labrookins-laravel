@@ -15,7 +15,7 @@
 @section('content')
 <div class="card">
     <div class="card-header d-flex justify-content-between">
-        <h4>Category List</h4>
+        <h4>Categories List</h4>
         <a href="{{ route('categories.create') }}" class="btn btn-primary">Add Category</a>
     </div>
     <div class="card-body">

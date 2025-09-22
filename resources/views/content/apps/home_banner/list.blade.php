@@ -26,7 +26,8 @@
                         <tr>
                             <th>Image</th>
                             <th>Title</th>
-                            <th>Order No</th>
+                            {{-- <th>Order No</th> --}}
+                            <th>Created At</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -47,10 +48,11 @@ $(document).ready(function() {
         ajax: "{{ route('home.home_banner.getAll') }}",
         columns: [
             {data: 'image', render: function(data){
-                return data ? `<img src="/storage/${data}" width="100" height="60" style="object-fit:cover;border-radius:6px;">` : '-';
+                return data ? `<img src="/storage/${data}" width="200" height="60" style="border-radius:6px;">` : '-';
             }},
             {data: 'title'},
-            {data: 'order_by'},
+            // {data: 'order_by'},
+            {data: 'created_at'},
             {data: 'status'},
             {data: 'actions', orderable: false, searchable: false}
         ],

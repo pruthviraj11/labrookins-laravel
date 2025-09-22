@@ -20,7 +20,7 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
+                    <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
                     <input type="text" name="title" id="title" class="form-control"
                         value="{{ old('title', $welcome->title ?? '') }}" required>
                 </div>
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="text" class="form-label">Text</label>
+                    <label for="text" class="form-label">Sub Title <span class="text-danger">*</span></label>
                     <input type="text" name="text" id="text" class="form-control"
                         value="{{ old('text', $welcome->text ?? '') }}" required>
                 </div>
