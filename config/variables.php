@@ -1,7 +1,7 @@
 <?php
 // Variables
 return [
-  "creatorName" => "Dedentinfoways",
+  "creatorName" => "Decentinfoways",
   "creatorUrl" => "",
   "templateName" => "La Brookins ",
   "templateSuffix" => "System",
