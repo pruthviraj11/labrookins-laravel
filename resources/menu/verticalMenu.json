@@ -45,12 +45,12 @@
     },
     {
       "name": "Home",
-      "icon": "menu-icon tf-icons ti ti-users",
+      "icon": "menu-icon tf-icons ti ti-home",
       "slug": "home",
       "submenu": [
         {
           "url": "home/home_banner/list",
-          "name": "Home Banner",
+          "name": "Home Banners",
           "slug": "home.home_banner.list"
         },
         {
@@ -106,14 +106,14 @@
     },
     {
       "url": "schedulings",
-      "icon": "menu-icon tf-icons ti ti-users",
+      "icon": "menu-icon tf-icons ti ti-calendar",
       "name": "Schedulings",
       "slug": "schedulings.index"
     },
     {
       "url": "itinerary",
       "icon": "menu-icon tf-icons ti ti-users",
-      "name": "Itinerary",
+      "name": "Events",
       "slug": "itinerary.list"
     },
     {

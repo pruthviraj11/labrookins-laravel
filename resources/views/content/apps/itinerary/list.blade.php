@@ -23,8 +23,8 @@
 
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h4 class="card-title mb-0">Itinerary List</h4>
-                <a href="{{ route('itinerary.create') }}" class="btn btn-primary">Add Itinerary</a>
+                <h4 class="card-title mb-0">Events List</h4>
+                <a href="{{ route('itinerary.create') }}" class="btn btn-primary">Add Event</a>
             </div>
 
             <div class="card-body border-bottom">

@@ -21,7 +21,7 @@
         @endif
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h5 class="card-title mb-0">Products</h5>
+                <h5 class="card-title mb-0">Products List</h5>
                 <a href="{{ route('store.products.add') }}" class="btn btn-primary">Add Product</a>
             </div>
             <div class="card-body border-bottom">

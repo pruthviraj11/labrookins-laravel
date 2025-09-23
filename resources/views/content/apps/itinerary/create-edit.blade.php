@@ -15,7 +15,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">{{ isset($itinerary) ? 'Edit' : 'Create' }} Itinerary</h5>
+            <h5 class="card-title">{{ isset($itinerary) ? 'Edit' : 'Create' }} Events</h5>
         </div>
         <div class="card-body">
             <form method="POST"

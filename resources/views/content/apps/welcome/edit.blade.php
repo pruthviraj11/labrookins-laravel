@@ -57,7 +57,7 @@
                 <input type="url" name="url" id="url" class="form-control" value="{{ old('url', $welcome->url ?? '') }}" required>
             </div> --}}
 
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>
     </div>

@@ -22,7 +22,7 @@
 
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h4 class="card-title">Devotional List</h4>
+                <h4 class="card-title">Devotionals List</h4>
                 <a href="{{ route('devotional.add') }}" class="btn btn-primary">Add Devotional</a>
             </div>
 

@@ -16,7 +16,7 @@
 <section class="app-user-list">
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <h4 class="card-title">Home Banner List</h4>
+            <h4 class="card-title">Home Banners List</h4>
             <a href="{{ route('home.home_banner.add') }}" class="btn btn-primary">Add Banner</a>
         </div>
         <div class="card-body border-bottom">

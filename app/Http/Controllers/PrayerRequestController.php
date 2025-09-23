@@ -14,8 +14,8 @@ class PrayerRequestController extends Controller
             $data = PrayerRequest::select('*');
             return DataTables::of($data)
                 ->addColumn('actions', function ($row) {
-                    $viewBtn = '<a href="'.route('prayer_requests.show', encrypt($row->id)).'" class="btn btn-sm btn-info" data-bs-toggle="tooltip" title="View"><i data-feather="eye"></i></a>';
-                    $deleteBtn = '<a href="'.route('prayer_requests.delete', $row->id).'" class="btn btn-sm btn-danger confirm-delete" data-bs-toggle="tooltip" title="Delete"><i data-feather="trash-2"></i></a>';
+                    $viewBtn = '<a href="'.route('prayer_requests.show', encrypt($row->id)).'" class="btn btn-sm " data-bs-toggle="tooltip" title="View"><i data-feather="eye" class = "text-secondary"></i></a>';
+                    $deleteBtn = '<a href="'.route('prayer_requests.delete', $row->id).'" class="btn btn-sm  confirm-delete" data-bs-toggle="tooltip" title="Delete"><i data-feather="trash-2" class="text-danger"></i></a>';
                     return $viewBtn . ' ' . $deleteBtn;
                 })
                 ->rawColumns(['actions'])
