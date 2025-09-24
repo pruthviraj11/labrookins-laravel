@@ -74,6 +74,7 @@ class AllPageBannerController extends Controller
   public function store(CreateAllPageBannerRequest $request)
   {
     try {
+      // dd($request->all());
       // dd($request->hasFile('image'), $request->image);
       if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('banners', 'public');

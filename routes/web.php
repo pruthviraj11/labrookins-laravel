@@ -181,10 +181,37 @@ use App\Http\Controllers\apps\UsersController;
 use Illuminate\Support\Facades\Auth;
 
 // Main Page Route
-// Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
-Route::get('/', function () {
+Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
+Route::get('/app', function () {
   return redirect()->route('login');
+
 });
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/word_for_day', [HomeController::class, 'word_for_day'])->name('word_for_day');
+Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
+Route::get('/site.itinerary', [HomeController::class, 'itinerary'])->name('site.itinerary');
+Route::get('/contact_us', [HomeController::class, 'contact_us'])->name('contact_us');
+Route::get('/prayer_request', [HomeController::class, 'prayer_request'])->name('prayer_request');
+Route::get('/online_donation', [HomeController::class, 'online_donation'])->name('online_donation');
+Route::get('/scheduling', [HomeController::class, 'scheduling'])->name('scheduling');
+Route::get('/books', [HomeController::class, 'books'])->name('books');
+Route::get('/sermon-manuscripts-downloaded', [HomeController::class, 'sermon_manuscripts_downloaded'])->name('sermon-manuscripts-downloaded');
+Route::get('/sermon-manuscripts-shipped', [HomeController::class, 'sermon_manuscripts_shipped'])->name('sermon-manuscripts-shipped');
+Route::get('/sermon-series-shipped', [HomeController::class, 'sermon_series_shipped'])->name('sermon-series-shipped');
+Route::get('/workbooks-manuals', [HomeController::class, 'workbooks_manuals'])->name('workbooks-manuals');
+Route::get('/other-products', [HomeController::class, 'other_products'])->name('other-products');
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/dashboard/analytics', [Analytics::class, 'index'])->name('dashboard-analytics');
 Route::get('/dashboard/crm', [Crm::class, 'index'])->name('dashboard-crm');
 // locale

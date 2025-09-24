@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
+use App\Models\Product;
 use App\Services\ProductService;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class ProductController extends Controller
 
   public function getAll(Request $request)
   {
+    // dd(Product::count());
     if ($request->ajax()) {
       return datatables()->of($this->service->getAll())
         ->addColumn('category', fn($row) => $row->category?->title ?? '-')
