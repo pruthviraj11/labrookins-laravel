@@ -41,8 +41,8 @@
                         {!! Str::limit(strip_tags($word->description), 180) !!}
                     </p>
                     <p class="link-more">
-                        {{-- <a href="{{ route('word_for_day.show', $word->id) }}" class="more-link">Continue reading</a> --}}
-                        <a href="#" class="more-link">Continue reading</a>
+                        <a href="{{ route('word_for_day.show', $word->slug_url) }}" class="more-link" target="_blank">Continue reading</a>
+                        {{-- <a href="#" class="more-link">Continue reading</a> --}}
 
                     </p>
                 </div>

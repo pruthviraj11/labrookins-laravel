@@ -189,7 +189,11 @@ Route::get('/app', function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/word_for_day', [HomeController::class, 'word_for_day'])->name('word_for_day');
+Route::get('/word_for_day.show/{slug}', [HomeController::class, 'word_for_day_show'])->name('word_for_day.show');
+
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
+Route::get('/blog.show/{slug}', [HomeController::class, 'blog_show'])->name('blog.show');
+
 Route::get('/site.itinerary', [HomeController::class, 'itinerary'])->name('site.itinerary');
 Route::get('/contact_us', [HomeController::class, 'contact_us'])->name('contact_us');
 Route::get('/prayer_request', [HomeController::class, 'prayer_request'])->name('prayer_request');
@@ -201,6 +205,7 @@ Route::get('/sermon-manuscripts-shipped', [HomeController::class, 'sermon_manusc
 Route::get('/sermon-series-shipped', [HomeController::class, 'sermon_series_shipped'])->name('sermon-series-shipped');
 Route::get('/workbooks-manuals', [HomeController::class, 'workbooks_manuals'])->name('workbooks-manuals');
 Route::get('/other-products', [HomeController::class, 'other_products'])->name('other-products');
+
 
 
 
@@ -525,12 +530,14 @@ Route::prefix('prayer_requests')->group(function () {
   Route::get('/', [PrayerRequestController::class, 'index'])->name('prayer_requests.index');
   Route::get('/show/{id}', [PrayerRequestController::class, 'show'])->name('prayer_requests.show');
   Route::get('/delete/{id}', [PrayerRequestController::class, 'delete'])->name('prayer_requests.delete');
+  Route::post('/prayer-request/store', [PrayerRequestController::class, 'store'])->name('prayer.store');
 });
 
 
 Route::prefix('contacts')->group(function () {
-    Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
-    Route::get('/delete/{id}', [ContactController::class, 'delete'])->name('contacts.delete');
+  Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
+  Route::get('/delete/{id}', [ContactController::class, 'delete'])->name('contacts.delete');
+  Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 });
 
 
@@ -539,41 +546,41 @@ Route::post('settings', [SettingController::class, 'store'])->name('settings.sto
 
 
 Route::prefix('schedulings')->group(function () {
-    Route::get('/', [SchedulingController::class, 'index'])->name('schedulings.index');
+  Route::get('/', [SchedulingController::class, 'index'])->name('schedulings.index');
 });
 
 Route::prefix('home')->middleware(['auth'])->group(function () {
-    Route::get('home_banner/list', [HomeBannerController::class, 'index'])->name('home.home_banner.list');
-    Route::get('home_banner/getAll', [HomeBannerController::class, 'getAll'])->name('home.home_banner.getAll');
-    Route::get('home_banner/add', [HomeBannerController::class, 'create'])->name('home.home_banner.add');
-    Route::post('home_banner/store', [HomeBannerController::class, 'store'])->name('home.home_banner.store');
-    Route::get('home_banner/edit/{encrypted_id}', [HomeBannerController::class, 'edit'])->name('home.home_banner.edit');
-    Route::put('home_banner/update/{encrypted_id}', [HomeBannerController::class, 'update'])->name('home.home_banner.update');
-    Route::get('home_banner/destroy/{encrypted_id}', [HomeBannerController::class, 'destroy'])->name('home.home_banner.destroy');
+  Route::get('home_banner/list', [HomeBannerController::class, 'index'])->name('home.home_banner.list');
+  Route::get('home_banner/getAll', [HomeBannerController::class, 'getAll'])->name('home.home_banner.getAll');
+  Route::get('home_banner/add', [HomeBannerController::class, 'create'])->name('home.home_banner.add');
+  Route::post('home_banner/store', [HomeBannerController::class, 'store'])->name('home.home_banner.store');
+  Route::get('home_banner/edit/{encrypted_id}', [HomeBannerController::class, 'edit'])->name('home.home_banner.edit');
+  Route::put('home_banner/update/{encrypted_id}', [HomeBannerController::class, 'update'])->name('home.home_banner.update');
+  Route::get('home_banner/destroy/{encrypted_id}', [HomeBannerController::class, 'destroy'])->name('home.home_banner.destroy');
 });
 Route::prefix('home')->name('home.')->group(function () {
-    Route::get('about', [WelcomeController::class, 'edit'])->name('welcome.edit');
-    Route::post('about', action: [WelcomeController::class, 'update'])->name('welcome.update');
-});
-
-Route::prefix('home')->name('home.')->group(function () {
-    Route::get('links', [HomeLinkController::class, 'edit'])->name('links.edit');
-    Route::post('links', [HomeLinkController::class, 'update'])->name('links.update');
+  Route::get('about', [WelcomeController::class, 'edit'])->name('welcome.edit');
+  Route::post('about', action: [WelcomeController::class, 'update'])->name('welcome.update');
 });
 
 Route::prefix('home')->name('home.')->group(function () {
-    Route::get('quick-links', [QuickLinkController::class, 'edit'])->name('quicklinks.edit');
-    Route::post('quick-links', [QuickLinkController::class, 'update'])->name('quicklinks.update');
+  Route::get('links', [HomeLinkController::class, 'edit'])->name('links.edit');
+  Route::post('links', [HomeLinkController::class, 'update'])->name('links.update');
+});
+
+Route::prefix('home')->name('home.')->group(function () {
+  Route::get('quick-links', [QuickLinkController::class, 'edit'])->name('quicklinks.edit');
+  Route::post('quick-links', [QuickLinkController::class, 'update'])->name('quicklinks.update');
 });
 
 Route::prefix('store')->middleware(['auth'])->group(function () {
-    Route::get('products/list', [ProductController::class, 'index'])->name('store.products.list');
-    Route::get('products/getAll', [ProductController::class, 'getAll'])->name('store.products.getAll');
-    Route::get('products/add', [ProductController::class, 'create'])->name('store.products.add');
-    Route::post('products/store', [ProductController::class, 'store'])->name('store.products.store');
-    Route::get('products/edit/{encrypted_id}', [ProductController::class, 'edit'])->name('store.products.edit');
-    Route::put('products/update/{encrypted_id}', [ProductController::class, 'update'])->name('store.products.update');
-    Route::delete('products/destroy/{encrypted_id}', [ProductController::class, 'destroy'])->name('store.products.destroy');
+  Route::get('products/list', [ProductController::class, 'index'])->name('store.products.list');
+  Route::get('products/getAll', [ProductController::class, 'getAll'])->name('store.products.getAll');
+  Route::get('products/add', [ProductController::class, 'create'])->name('store.products.add');
+  Route::post('products/store', [ProductController::class, 'store'])->name('store.products.store');
+  Route::get('products/edit/{encrypted_id}', [ProductController::class, 'edit'])->name('store.products.edit');
+  Route::put('products/update/{encrypted_id}', [ProductController::class, 'update'])->name('store.products.update');
+  Route::delete('products/destroy/{encrypted_id}', [ProductController::class, 'destroy'])->name('store.products.destroy');
 });
 
 Route::prefix('app')->middleware('auth')->group(function () {

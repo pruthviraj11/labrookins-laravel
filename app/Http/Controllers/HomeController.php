@@ -55,15 +55,31 @@ class HomeController extends Controller
 
   }
 
+  public function word_for_day_show($slug)
+  {
+
+    $home_banner = Banner::where('is_page', 1)->where('page', 'word_for_today')->where('status', 1)->first();
+    $word_for_day_show = Devotional::where('status', 1)->where('page', 'word_for_today')->where('slug_url', $slug)->first();
+    return view('site.word_for_day_show', compact('home_banner', 'word_for_day_show'));
+
+  }
   public function blog()
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'blog')->where('status', 1)->first();
     $blog = Devotional::where('status', 1)->where('page', 'blog')->get();
-
+    // dd($blog);
     return view('site.blog', compact('home_banner', 'blog'));
 
   }
 
+  public function blog_show($slug)
+  {
+
+    $home_banner = Banner::where('is_page', 1)->where('page', 'blog')->where('status', 1)->first();
+    $blog_show = Devotional::where('status', 1)->where('page', 'blog')->where('slug_url', $slug)->first();
+    return view('site.blog_show', compact('home_banner', 'blog_show'));
+
+  }
   public function itinerary()
   {
     // dd('Hii');
@@ -111,7 +127,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 1)->where('status', 1)->orderBy('id', 'desc')->paginate(9);
+    $books = Product::where('category_id', 1)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
 
 
     return view('site.books', compact('home_banner', 'books'));
@@ -122,7 +138,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 6)->where('status', 1)->orderBy('id', 'desc')->paginate(9);
+    $books = Product::where('category_id', 6)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
 
 
     return view('site.sermon_manuscripts_downloaded', compact('home_banner', 'books'));
@@ -133,7 +149,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 7)->where('status', 1)->orderBy('id', 'desc')->paginate(9);
+    $books = Product::where('category_id', 7)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
 
 
     return view('site.sermon_manuscripts_shipped', compact('home_banner', 'books'));
@@ -144,7 +160,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 8)->where('status', 1)->orderBy('id', 'desc')->paginate(9);
+    $books = Product::where('category_id', 8)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
 
 
     return view('site.sermon_series_shipped', compact('home_banner', 'books'));
@@ -155,7 +171,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 9)->where('status', 1)->orderBy('id', 'desc')->paginate(9);
+    $books = Product::where('category_id', 9)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
 
 
     return view('site.workbooks_manuals', compact('home_banner', 'books'));
@@ -166,10 +182,12 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 10)->where('status', 1)->orderBy('id', 'desc')->paginate(9);
+    $books = Product::where('category_id', 10)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
 
 
     return view('site.other_products', compact('home_banner', 'books'));
 
   }
+
+
 }

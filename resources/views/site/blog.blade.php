@@ -48,7 +48,7 @@
 
                         {{-- @if(!empty($item->link)) --}}
                             <p class="link-more">
-                                <a href="#" target="_blank" class="more-link">Continue reading</a>
+                                <a href="{{ route('blog.show', $item->slug_url) }}" target="_blank" class="more-link">Continue reading</a>
                             </p>
                         {{-- @endif --}}
                     </div>

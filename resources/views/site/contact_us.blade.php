@@ -62,7 +62,12 @@
 
                     {{-- Contact Form --}}
                     <div class="col-md-6 form_box">
-                        <form class="p-3" name="contactForm" method="POST" action="#">
+                        @if (session('success'))
+                            <div class="alert alert-success mt-2 mx-4">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <form class="p-3" name="contactForm" method="POST" action="{{ route('contact.store') }}">
                             @csrf
                             <input type="hidden" name="spam_title" id="spam_title">
 

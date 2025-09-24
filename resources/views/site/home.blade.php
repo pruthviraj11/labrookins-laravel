@@ -1,7 +1,7 @@
 @extends('layouts.homeLayout')
 {{-- @extends('layouts.app') --}}
 
-@section('title', 'Home Page')
+@section('title', 'Home')
 
 @section('content')
 

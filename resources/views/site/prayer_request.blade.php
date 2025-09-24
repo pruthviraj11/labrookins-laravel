@@ -36,7 +36,12 @@
 
         {{-- Form Section --}}
         <div class="col-xl-6 content-side">
-            <form action="#" method="POST">
+          @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+            <form action="{{ route('prayer.store') }}" method="POST">
                 @csrf
 
                 {{-- Category --}}
