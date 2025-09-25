@@ -24,7 +24,7 @@
             <div class="entry-content">
 
                 <div class="speak">
-                    <a href="#">Speaking Engagement</a>
+                    <a href="{{route('scheduling')}}">Speaking Engagement</a>
                 </div>
                 <div></div>
 

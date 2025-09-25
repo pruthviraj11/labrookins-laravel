@@ -44,8 +44,9 @@ class CategoryController extends Controller
         $categories = $this->service->getAllCategories();
         return DataTables::of($categories)
             ->addColumn('status', function ($row) {
-                return $row->is_active === 'active'
-                    ? '<span class="badge bg-label-primary">Active</span>'
+
+                return $row->is_active == 'active'
+                    ? '<span class="badge bg-label-success">Active</span>'
                     : '<span class="badge bg-label-danger">Inactive</span>';
             })
             ->addColumn('actions', function ($row) {

@@ -41,7 +41,7 @@ $(function(){
         ajax: "{{ route('categories.getAll') }}",
         columns:[
             { data:'title', name:'title' },
-            { data:'is_active', name:'is_active' },
+            { data:'status', name:'status' },
             { data:'actions', name:'actions', orderable:false, searchable:false }
         ],
         drawCallback: function() {

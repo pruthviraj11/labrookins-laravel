@@ -94,10 +94,10 @@
             </div>
 
             <!-- Pagination -->
-            <div class="pager Pagination mt-4">
+           <div class="pager Pagination">
                 <div class="col-md-12">
-                    <div class="row justify-content-center">
-                        {{ $books->links('pagination::bootstrap-4') }}
+                    <div class="row">
+                        {{ $books->links('pagination::default') }}
                     </div>
                 </div>
             </div>

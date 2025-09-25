@@ -67,8 +67,8 @@
                 <div class="col-md-3 mt-3 product">
                     @if ($book->product_image)
                         <a href="#">
-                            <img src="{{ asset('storage/products/' . $book->product_image) }}"
-                                height="375px" alt="{{ $book->product_name }}">
+                            <img src="{{ asset('storage/products/' . $book->product_image) }}" height="375px"
+                                alt="{{ $book->product_name }}">
                         </a>
                     @endif
                     <h2 class="product__title">{{ $book->product_name }}</h2>
@@ -92,10 +92,10 @@
             @endforelse
         </div>
 
-        <div class="pager Pagination mt-4">
+        <div class="pager Pagination">
             <div class="col-md-12">
                 <div class="row">
-                    {{ $books->links('pagination::bootstrap-4') }}
+                    {{ $books->links('pagination::default') }}
                 </div>
             </div>
         </div>

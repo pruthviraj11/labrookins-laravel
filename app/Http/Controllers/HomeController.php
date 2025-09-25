@@ -127,7 +127,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 1)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+    $books = Product::where('category_id', 1)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
 
     return view('site.books', compact('home_banner', 'books'));
@@ -138,7 +138,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 6)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+    $books = Product::where('category_id', 6)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
 
     return view('site.sermon_manuscripts_downloaded', compact('home_banner', 'books'));
@@ -149,7 +149,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 7)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+    $books = Product::where('category_id', 7)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
 
     return view('site.sermon_manuscripts_shipped', compact('home_banner', 'books'));
@@ -160,7 +160,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 8)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+    $books = Product::where('category_id', 8)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
 
     return view('site.sermon_series_shipped', compact('home_banner', 'books'));
@@ -171,7 +171,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 9)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+    $books = Product::where('category_id', 9)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
 
     return view('site.workbooks_manuals', compact('home_banner', 'books'));
@@ -182,7 +182,7 @@ class HomeController extends Controller
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 10)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+    $books = Product::where('category_id', 10)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
 
     return view('site.other_products', compact('home_banner', 'books'));

@@ -43,10 +43,10 @@
 
                     <div class="justyfy_sm"><br>
                         <p class="max-lines">
-                            {!! Str::limit($item->description, 200, '...') !!}
+                            {!! Str::limit($item->description, 300, '...') !!}
                         </p>
 
-                        {{-- @if(!empty($item->link)) --}}
+                        {{-- @if(!empty($item->long_description)) --}}
                             <p class="link-more">
                                 <a href="{{ route('blog.show', $item->slug_url) }}" target="_blank" class="more-link">Continue reading</a>
                             </p>

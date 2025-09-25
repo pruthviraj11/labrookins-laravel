@@ -35,7 +35,7 @@
     <header id="header" class="fixed--top header-inner-pages">
         <div class="header" style="background-image: url({{ asset('home/assets/img/header-bg.png') }});">
             <div class="container d-flex justify-content-center align-items-center">
-                <div class="row w-100">
+                <div class="row ">
                     <div class="col-md-4">
                         <a href="{{ url('/') }}">
                             <img src="{{ asset('home/assets/img/logo.png') }}" class="my-4" alt="Logo">

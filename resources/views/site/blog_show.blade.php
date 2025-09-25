@@ -7,10 +7,11 @@
 
 
 
-<div class="container mb-5">
-  <p class="">
+<section class="container mb-5 section_line">
+
+  <p class="" >
     {!! $blog_show->long_description !!}
     </p>
-</div>
+  </section>
 
 @endsection
