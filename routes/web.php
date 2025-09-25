@@ -205,7 +205,8 @@ Route::get('/sermon-manuscripts-shipped', [HomeController::class, 'sermon_manusc
 Route::get('/sermon-series-shipped', [HomeController::class, 'sermon_series_shipped'])->name('sermon-series-shipped');
 Route::get('/workbooks-manuals', [HomeController::class, 'workbooks_manuals'])->name('workbooks-manuals');
 Route::get('/other-products', [HomeController::class, 'other_products'])->name('other-products');
-
+Route::get('/calendar-data', [ItineraryController::class, 'calendar'])->name('calendar.data');
+Route::get('/events/{id}', [ItineraryController::class, 'events'])->name('event.details');
 
 
 
@@ -547,6 +548,7 @@ Route::post('settings', [SettingController::class, 'store'])->name('settings.sto
 
 Route::prefix('schedulings')->group(function () {
   Route::get('/', [SchedulingController::class, 'index'])->name('schedulings.index');
+  Route::post('/scheduling-submit', [SchedulingController::class, 'store'])->name('scheduling.submit');
 });
 
 Route::prefix('home')->middleware(['auth'])->group(function () {

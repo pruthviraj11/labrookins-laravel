@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactNotification;
 use App\Models\Contact;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Settings;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Mail;
 
@@ -37,28 +39,27 @@ class ContactController extends Controller
   }
 
 
-    public function store(Request $request)
-    {
-      // dd($request->all());
-        $request->validate([
-            'fname'   => 'required|string|max:100',
-            'email'   => 'required|email|max:100',
-            'subject' => 'required|string|max:150',
-            'comment' => 'required|string|max:250',
-        ]);
+  public function store(Request $request)
+  {
+    // dd($request->all());
+    $request->validate([
+      'fname' => 'required|string|max:100',
+      'email' => 'required|email|max:100',
+      'subject' => 'required|string|max:150',
+      'comment' => 'required|string|max:250',
+    ]);
 
+    $contact = Contact::create([
+      'name' => $request->fname,
+      'email' => $request->email,
+      'subject' => $request->subject,
+      'comment' => $request->comment,
+    ]);
 
-      $contact =  Contact::create([
-            'name'    => $request->fname,
-            'email'   => $request->email,
-            'subject' => $request->subject,
-            'comment' => $request->comment,
-        ]);
+    $settings = Setting::first();
+    Mail::to($settings->contact_form)->send(new ContactNotification($contact));
 
-
-          Mail::to('yrabadia99@gmail.com')->send(new ContactNotification($contact));
-
-        return redirect()->back()->with('success', 'Your message has been submitted successfully!');
-    }
+    return redirect()->back()->with('success', 'Your message has been submitted successfully!');
+  }
 }
 
