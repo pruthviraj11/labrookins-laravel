@@ -21,7 +21,7 @@ class OrderDetailController extends Controller
   {
     // dd($request->all());
     if ($request->ajax()) {
-      $orders = \App\Models\OrderDetail::select('*')->orderBy('date_and_time', 'desc');
+      $orders = OrderDetail::select('*')->orderBy('date_and_time', 'desc');
       return DataTables::of($orders)
         ->addColumn('name', function ($row) {
           return $row->fname . ' ' . $row->lname;
@@ -31,23 +31,23 @@ class OrderDetailController extends Controller
         })
         ->addColumn('email_send', function ($row) {
           $url = route('orders.sendMail', $row->id);
-          return '<button type="button" class="btn btn-primary btn-sm send-mail-btn"
+          return '<button type="button" class="btn btn-primary btn-sm send-mail-btn" style="border-radius:50px"
                     data-url="' . $url . '" data-id="' . $row->id . '">
-                    Send Mail
+                    Send Email
                 </button>';
         })
         ->addColumn('actions', function ($row) {
           $viewUrl = route('orders.show', $row->id);
           $deleteUrl = route('orders.destroy', $row->id);
           return '
-                    <a href="' . $viewUrl . '" class="btn btn-info btn-sm">View</a>
+                    <a href="' . $viewUrl . '" class="btn text-secondary btn-sm mb-1"><i class="ti ti-eye"></i></a>
                     <form action="' . $deleteUrl . '" method="POST" style="display:inline-block;">
                         ' . csrf_field() . method_field("DELETE") . '
-                        <button type="submit" class="btn btn-danger btn-sm"
-                            onclick="return confirm(\'Are you sure?\')">Delete</button>
+                        <button type="submit" class="btn text-danger btn-sm"
+                            onclick="return confirm(\'Are you sure?\')"><i class="ti ti-trash"></i></button>
                     </form>';
         })
-        ->rawColumns(['actions','email_send'])
+        ->rawColumns(['actions', 'email_send'])
         ->make(true);
     }
 
@@ -72,7 +72,7 @@ class OrderDetailController extends Controller
   }
 
   public function sendMail($id)
-{
+  {
     $order = OrderDetail::findOrFail($id);
 
     // Send mail
@@ -80,5 +80,5 @@ class OrderDetailController extends Controller
     Mail::to($order->email)->send(new OrderMail($order));
 
     return response()->json(['success' => true, 'message' => 'Mail sent successfully!']);
-}
+  }
 }

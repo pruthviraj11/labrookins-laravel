@@ -41,14 +41,14 @@ class ProductController extends Controller
           $deleteUrl = route('store.products.destroy', encrypt($row->id));
 
           return '
-                    <a href="' . $editUrl . '" class="btn btn-sm btn-primary me-1">
-                        <i data-feather="edit">Edit</i>
+                    <a href="' . $editUrl . '" class="btn btn-sm me-1 text-secondary">
+                        <i class="ti ti-edit"></i>
                     </a>
                     <form action="' . $deleteUrl . '" method="POST" style="display:inline;"
                           onsubmit="return confirm(\'Are you sure?\')">
                         ' . csrf_field() . method_field('DELETE') . '
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            <i data-feather="trash-2">delete</i>
+                        <button type="submit" class="btn btn-sm text-danger">
+                                <i class="ti ti-trash"></i>
                         </button>
                     </form>
                 ';
