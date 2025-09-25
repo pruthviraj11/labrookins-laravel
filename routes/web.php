@@ -208,6 +208,7 @@ Route::get('/other-products', [HomeController::class, 'other_products'])->name('
 Route::get('/calendar-data', [ItineraryController::class, 'calendar'])->name('calendar.data');
 Route::get('/events/{id}', [ItineraryController::class, 'events'])->name('event.details');
 
+Route::post('/orders/{id}/send-mail', [OrderDetailController::class, 'sendMail'])->name('orders.sendMail');
 
 
 
@@ -525,6 +526,7 @@ Route::prefix('app')->middleware(['auth'])->group(function () {
   Route::get('orders/{id}', [OrderDetailController::class, 'show'])->name('orders.show');
   Route::delete('orders/{id}', [OrderDetailController::class, 'destroy'])->name('orders.destroy');
   Route::get('orders-export', [OrderDetailController::class, 'export'])->name('orders.export');
+
 });
 
 Route::prefix('prayer_requests')->group(function () {

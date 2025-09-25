@@ -37,6 +37,7 @@
                                 <th>Mobile</th>
                                 <th>Total Amount</th>
                                 <th>Order Type</th>
+                                <th>Email Send</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -54,14 +55,40 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('orders.index') }}",
-                columns: [
-                    { data: 'date_and_time', name: 'date_and_time' },
-                    { data: 'fname', name: 'fname' },
-                    { data: 'email', name: 'email' },
-                    { data: 'street_address1', name: 'street_address1' },
-                    { data: 'mobile', name: 'mobile' },
-                    { data: 'total_amount', name: 'total_amount' },
-                    { data: 'order_type', name: 'order_type' },
+                columns: [{
+                        data: 'date_and_time',
+                        name: 'date_and_time'
+                    },
+                    {
+                        data: 'fname',
+                        name: 'fname'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'street_address1',
+                        name: 'street_address1'
+                    },
+                    {
+                        data: 'mobile',
+                        name: 'mobile'
+                    },
+                    {
+                        data: 'total_amount',
+                        name: 'total_amount'
+                    },
+                    {
+                        data: 'order_type',
+                        name: 'order_type'
+                    },
+                    {
+                        data: 'email_send',
+                        name: 'email_send',
+                        orderable: false,
+                        searchable: false
+                    },
                     {
                         data: 'actions',
                         name: 'actions',
@@ -69,14 +96,37 @@
                         searchable: false
                     }
                 ],
-                order: [[0, 'desc']],
+                order: [
+                    [0, 'desc']
+                ],
                 drawCallback: function() {
                     feather.replace();
                     $('[data-bs-toggle="tooltip"]').tooltip();
                 }
             });
         });
-
-
     </script>
+
+    <script>
+        $(document).on('click', '.send-mail-btn', function() {
+            let url = $(this).data('url');
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                    }
+                },
+                error: function() {
+                    alert("Something went wrong while sending email.");
+                }
+            });
+        });
+    </script>
+
 @endsection
