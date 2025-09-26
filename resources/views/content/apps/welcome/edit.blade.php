@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">About</h4>
+            <h4 class="card-title">About | L.A. BROOKINS MINISTRIES</h4>
         </div>
         <div class="card-body">
             @if (session('success'))

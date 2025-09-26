@@ -1,6 +1,6 @@
 @extends('layouts.homeLayout')
 
-@section('title', 'Blog')
+@section('title', 'Blog | L.A. BROOKINS MINISTRIES')
 
 @section('content')
 

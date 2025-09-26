@@ -1,6 +1,6 @@
 @extends('layouts.homeLayout')
 
-@section('title', 'Word For Day')
+@section('title', 'Word For Day | L.A. BROOKINS MINISTRIES')
 
 @section('content')
 

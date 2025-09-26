@@ -43,8 +43,9 @@ class OrderDetailController extends Controller
                     <a href="' . $viewUrl . '" class="btn text-secondary btn-sm mb-1"><i class="ti ti-eye"></i></a>
                     <form action="' . $deleteUrl . '" method="POST" style="display:inline-block;">
                         ' . csrf_field() . method_field("DELETE") . '
-                        <button type="submit" class="btn text-danger btn-sm"
-                            onclick="return confirm(\'Are you sure?\')"><i class="ti ti-trash"></i></button>
+                      <button type="button" class="btn text-danger btn-sm delete-btn">
+        <i class="ti ti-trash"></i>
+    </button>
                     </form>';
         })
         ->rawColumns(['actions', 'email_send'])

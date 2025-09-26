@@ -1,7 +1,7 @@
 @extends('layouts.homeLayout')
 {{-- @extends('layouts.app') --}}
 
-@section('title', 'Home')
+@section('title', 'Home | L.A. BROOKINS MINISTRIES')
 
 @section('content')
 

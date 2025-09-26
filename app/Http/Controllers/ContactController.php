@@ -20,7 +20,7 @@ class ContactController extends Controller
         ->addColumn('action', function ($row) {
           return '
                     <a href="' . route('contacts.delete', $row->id) . '"
-                       class="btn btn-sm text-danger confirm-delete" data-bs-toggle="tooltip" title="Delete">
+                       class=" btn-sm text-danger confirm-delete" data-bs-toggle="tooltip" title="Delete">
                         <i data-feather="trash-2"></i>
                     </a>';
         })

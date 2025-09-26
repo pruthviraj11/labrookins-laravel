@@ -35,12 +35,12 @@ class ItineraryController extends Controller
         $encryptedId = encrypt($row->id);
 
         $edit = "<a href='" . route('itinerary.edit', $encryptedId) . "'
-                        class='btn btn-sm text-secondary' data-bs-toggle='tooltip' title='Edit'>
+                        class=' btn-sm text-secondary' data-bs-toggle='tooltip' title='Edit'>
                         <i data-feather='edit'></i>
                      </a>";
 
         $delete = "<a href='" . route('itinerary.destroy', $encryptedId) . "'
-                        class='btn btn-sm text-danger confirm-delete' data-bs-toggle='tooltip' title='Delete'>
+                        class=' btn-sm text-danger confirm-delete' data-bs-toggle='tooltip' title='Delete'>
                         <i data-feather='trash-2'></i>
                       </a>";
 

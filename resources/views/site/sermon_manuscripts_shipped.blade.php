@@ -1,6 +1,6 @@
 @extends('layouts.homeLayout')
 
-@section('title', 'Sermon Manuscript Shipped')
+@section('title', 'Sermon Manuscript Shipped | L.A. BROOKINS MINISTRIES')
 
 <style>
     .pagination li {

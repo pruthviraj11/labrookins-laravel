@@ -1,6 +1,6 @@
 @extends('layouts.homeLayout')
 
-@section('title', 'Sermon Manuscript Downloaded')
+@section('title', 'Sermon Manuscript Downloaded | L.A. BROOKINS MINISTRIES')
 
 
 

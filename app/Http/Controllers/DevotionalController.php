@@ -31,8 +31,8 @@ class DevotionalController extends Controller
       ->addColumn('actions', function ($row) {
         $encryptedId = encrypt($row->id);
 
-        $edit = "<a href='" . route('devotional.edit', $encryptedId) . "' class='btn btn-sm text-secondary  me-1'><i data-feather='edit'></i></a>";
-        $delete = "<a href='" . route('devotional.delete', $encryptedId) . "' class='btn btn-sm text-danger confirm-delete'><i data-feather='trash-2'></i></a>";
+        $edit = "<a href='" . route('devotional.edit', $encryptedId) . "' class=' btn-sm text-secondary  me-1'><i data-feather='edit'></i></a>";
+        $delete = "<a href='" . route('devotional.delete', $encryptedId) . "' class=' btn-sm text-danger confirm-delete'><i data-feather='trash-2'></i></a>";
 
         return $edit . ' ' . $delete;
       })

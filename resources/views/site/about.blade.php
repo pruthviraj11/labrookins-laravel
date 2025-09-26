@@ -1,6 +1,6 @@
 @extends('layouts.homeLayout')
 
-@section('title', 'About') {{-- page title --}}
+@section('title', 'About | L.A. BROOKINS MINISTRIES') {{-- page title --}}
 
 @section('content')
     <!-- Hero Section -->

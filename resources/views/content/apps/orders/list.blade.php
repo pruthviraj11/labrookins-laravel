@@ -127,6 +127,25 @@
                 }
             });
         });
+
+        $(document).on('click', '.delete-btn', function(e) {
+            e.preventDefault();
+            let form = $(this).closest('form');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This action cannot be undone!",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
     </script>
 
 @endsection
