@@ -81,6 +81,17 @@
                                         <li><a href="{{ url('online_donation') }}">Online Donations</a></li>
                                     </ul>
                                 </li>
+
+                              
+                                @php $cartCount = session('cart') ? count(session('cart')) : 0; @endphp
+                                @if ($cartCount > 0)
+                                    <li>
+                                        <a class="nav-link scrollto" href="{{ route('cart.index') }}">
+                                            <i class="bi bi-cart-fill"></i>
+                                            <span class="badge bg-danger">{{ $cartCount }}</span>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                             <i class="bi bi-list mobile-nav-toggle"></i>
                         </nav>

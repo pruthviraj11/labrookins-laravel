@@ -1091,6 +1091,20 @@ label {
   color: #515151;
 }
 
+
+.add_to_cart_button_2 {
+  color: #fff;
+  background-color: #0072cf;
+  font-family: "segoeui";
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.add_to_cart_button_2:hover {
+  background-color: #dfdcde;
+  color: #515151;
+}
+
 .update_cart_button {
   color: #fff;
   background-color: #0072cf;

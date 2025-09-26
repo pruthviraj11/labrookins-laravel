@@ -83,12 +83,22 @@
                                 <span class="price">${{ number_format($book->product_price, 2) }}</span>
                             </a>
                         @endif
-                        <a class="add_to_cart_button btn" data-pid="{{ $book->id }}"
+                        {{-- <a class="add_to_cart_button btn" data-pid="{{ $book->id }}"
                             data-price="{{ $book->product_price }}">
                             Add to cart
                         </a>
-                        <a href="#" {{-- <a href="{{ route('cart.index') }}" --}} class="viewCart_{{ $book->id }}"
-                            style="display:none;">View cart</a>
+                        <a href="#" class="viewCart_{{ $book->id }}"
+                            style="display:none;">View cart</a> --}}
+
+
+                        <a class="add_to_cart_button btn" data-pid="{{ $book->id }}"
+                            data-price="{{ $book->product_price }}" rel="nofollow">
+                            Add to cart
+                        </a>
+                        <a href="{{ route('cart.index') }}" class="viewCart_{{ $book->id }} add_to_cart_button_2 btn" rel="nofollow"
+                            style="display:none;">
+                            View cart
+                        </a>
                         <hr class="position_ab">
                     </div>
                 @empty
@@ -97,7 +107,7 @@
             </div>
 
             <!-- Pagination -->
-           <div class="pager Pagination">
+            <div class="pager Pagination">
                 <div class="col-md-12">
                     <div class="row">
                         {{ $books->links('pagination::default') }}
@@ -108,3 +118,40 @@
     </section>
 
 @endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+$(document).ready(function() {
+    $(".add_to_cart_button").on("click", function(e) {
+        e.preventDefault();
+        var pid = $(this).data("pid");
+
+        $.ajax({
+            url: "{{ route('cart.add') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                pid: pid
+            },
+            success: function(res) {
+                if(res.status === "success"){
+                    $(".viewCart_" + pid).show();
+
+                    // SweetAlert2 Toast
+                    Swal.fire({
+                        icon: 'success',
+                        title: res.message,
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true,
+                        position: 'top-end'
+                    });
+                }
+            }
+        });
+    });
+});
+</script>
+
+@endpush
