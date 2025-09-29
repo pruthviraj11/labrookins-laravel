@@ -144,52 +144,85 @@
                     <div id="shippingFields" class="{{ old('ship_to_different_address', 'checked') ? '' : 'd-none' }}">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label">First Name</label>
+                                <label class="form-label">First Name <span class="text-danger">*</span> </label>
                                 <input type="text" class="form-control" name="d_fname" value="{{ old('d_fname') }}">
+                                @error('d_fname')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Last Name</label>
+                                <label class="form-label">Last Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="d_lname" value="{{ old('d_lname') }}">
+                                @error('d_lname')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Company Name (optional)</label>
                                 <input type="text" class="form-control" name="d_company_name"
                                     value="{{ old('d_company_name') }}">
+                                @error('d_company_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Country / Region</label>
+                                <label class="form-label">Country / Region <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="d_country"
                                     value="{{ old('d_country', 'United States (US)') }}">
+                                @error('d_country')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Street Address</label>
+                                <label class="form-label">Street Address <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control mb-2" name="d_street_address1"
                                     placeholder="House number and street name" value="{{ old('d_street_address1') }}">
+                                @error('d_street_address1')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                                 <input type="text" class="form-control" name="d_street_address2"
                                     placeholder="Apartment, suite, unit, etc. (optional)"
                                     value="{{ old('d_street_address2') }}">
+                                @error('d_street_address2')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label">Town / City</label>
+                                <label class="form-label">Town / City <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="d_city" value="{{ old('d_city') }}">
+                                @error('d_city')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">State / County (optional)</label>
                                 <input type="text" class="form-control" name="d_state" value="{{ old('d_state') }}">
+                                @error('d_state')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Zipcode</label>
                                 <input type="text" class="form-control" name="d_zip_code"
                                     value="{{ old('d_zip_code') }}">
+                                @error('d_zip_code')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label">Phone</label>
+                                <label class="form-label">Phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="d_mobile"
                                     value="{{ old('d_mobile') }}">
+                                @error('d_mobile')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Email Address</label>
+                                <label class="form-label">Email Address <span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" name="d_email" value="{{ old('d_email') }}">
+                                  @error('d_email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>

@@ -32,8 +32,8 @@
 
         <h4>Order Total: ${{ number_format($order->total_amount, 2) }}</h4>
 
-        {{-- <form action="{{ route('payment.process', $order->id) }}" method="POST"> --}}
-        <form action="#" method="POST">
+        <form action="{{ route('payment.process', $order->id) }}" method="POST">
+            {{-- <form action="#" method="POST"> --}}
 
             @csrf
             <div class="row">
@@ -48,11 +48,38 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label>Exp Month <span class="text-danger">*</span></label>
-                            <input type="text" name="exp_month" class="form-control" required>
+                            {{-- <input type="text" name="exp_month" class="form-control" required> --}}
+                            <select name="exp_month" class="form-control">
+                                <option value="">Exp Month*</option>
+                                <option value="01">01 - January</option>
+                                <option value="02">02 - February</option>
+                                <option value="03">03 - March</option>
+                                <option value="04">04 - April</option>
+                                <option value="05">05 - May</option>
+                                <option value="06">06 - June</option>
+                                <option value="07">07 - July</option>
+                                <option value="08">08 - August</option>
+                                <option value="09">09 - September</option>
+                                <option value="10">10 - October</option>
+                                <option value="11">11 - November</option>
+                                <option value="12">12 - December</option>
+                            </select>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label>Exp Year <span class="text-danger">*</span></label>
-                            <input type="text" name="exp_year" class="form-control" required>
+                            {{-- <input type="text" name="exp_year" class="form-control" required> --}}
+                            <select name="exp_year" class="form-control">
+                                <option value="">Exp Year*</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                            </select>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label>CVC <span class="text-danger">*</span></label>

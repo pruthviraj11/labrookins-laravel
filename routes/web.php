@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DevotionalController;
 use App\Http\Controllers\HomeBannerController;
 use App\Http\Controllers\HomeLinkController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuickLinkController;
 use App\Http\Controllers\ResetPasswordController;
@@ -194,6 +195,12 @@ Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.index');
 Route::post('/place_order', [CartController::class, 'place_order'])->name('place_order.index');
+
+Route::post('/payment/process/{order}', [PaymentController::class, 'processPayment'])->name('payment.process');
+Route::get('/thank_you', [CartController::class, 'thank_you'])->name('thank_you.page');
+Route::get('/failure', [CartController::class, 'failure'])->name('failure.page');
+
+
 
 Route::post('/store-guest-id', [HomeController::class, 'storeGuestId'])
     ->name('store.guestId');

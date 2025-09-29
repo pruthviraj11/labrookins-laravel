@@ -73,66 +73,90 @@ class CartController extends Controller
     return view('content/apps/checkout/index', compact('cart', 'home_banner'));
   }
 
- public function place_order(Request $request)
-{
+  public function place_order(Request $request)
+  {
+// dd($request->all());
     $cart = session()->get('cart', []);
     $guestId = session('guest_id');
 
+    $rules = [
+      'fname' => 'required|string|max:255',
+      'lname' => 'required|string|max:255',
+      'country' => 'required|string|max:255',
+      'street_address1' => 'required|string|max:255',
+      'city' => 'required|string|max:255',
+      'mobile' => 'required|string|max:20',
+      'email' => 'required|email|max:255',
+    ];
+
+    // Step 2: Add conditional rules if "Ship to a different address?" is checked
+    if ($request->ship_to_different_address == "on") {
+      $rules = array_merge($rules, [
+        'd_fname' => 'required|string|max:255',
+        'd_lname' => 'required|string|max:255',
+        'd_country' => 'required|string|max:255',
+        'd_street_address1' => 'required|string|max:255',
+        'd_city' => 'required|string|max:255',
+        'd_mobile' => 'required|string|max:20',
+        'd_email' => 'required|email|max:255',
+      ]);
+    }
+      $validated = $request->validate($rules);
     // calculate total
     $grandTotal = 0;
     foreach ($cart as $item) {
-        $grandTotal += $item['price'] * $item['quantity'];
+      $grandTotal += $item['price'] * $item['quantity'];
     }
     $total = $grandTotal + 8.95; // shipping
 
     // prepare order data
     $orderData = [
-        'guest_id' => $guestId,
-        'total_amount' => $total,
+      'guest_id' => $guestId,
+      'total_amount' => $total,
 
-        'fname' => $request->fname,
-        'lname' => $request->lname,
-        'company_name' => $request->company_name,
-        'country' => $request->country,
-        'street_address1' => $request->street_address1,
-        'street_address2' => $request->street_address2,
-        'city' => $request->city,
-        'state' => $request->state,
-        'zip_code' => $request->zip_code,
-        'mobile' => $request->mobile,
-        'email' => $request->email,
-        'order_notes' => $request->order_notes,
+      'fname' => $request->fname,
+      'lname' => $request->lname,
+      'company_name' => $request->company_name,
+      'country' => $request->country,
+      'street_address1' => $request->street_address1,
+      'street_address2' => $request->street_address2,
+      'city' => $request->city,
+      'state' => $request->state,
+      'zip_code' => $request->zip_code,
+      'mobile' => $request->mobile,
+      'email' => $request->email,
+      'order_notes' => $request->order_notes,
 
-        'd_fname' => $request->d_fname,
-        'd_lname' => $request->d_lname,
-        'd_company_name' => $request->d_company_name,
-        'd_country' => $request->d_country,
-        'd_street_address1' => $request->d_street_address1,
-        'd_street_address2' => $request->d_street_address2,
-        'd_city' => $request->d_city,
-        'd_state' => $request->d_state,
-        'd_zip_code' => $request->d_zip_code,
-        'd_mobile' => $request->d_mobile,
-        'd_email' => $request->d_email,
+      'd_fname' => $request->d_fname,
+      'd_lname' => $request->d_lname,
+      'd_company_name' => $request->d_company_name,
+      'd_country' => $request->d_country,
+      'd_street_address1' => $request->d_street_address1,
+      'd_street_address2' => $request->d_street_address2,
+      'd_city' => $request->d_city,
+      'd_state' => $request->d_state,
+      'd_zip_code' => $request->d_zip_code,
+      'd_mobile' => $request->d_mobile,
+      'd_email' => $request->d_email,
 
-        'order_type' => 'Pending',
-        'ship_to_different_address' => $request->has('ship_to_different_address') ? 1 : 0,
-        'delivered' => 0,
-        'date_and_time' => Carbon::now(),
+      'order_type' => 'Pending',
+      'ship_to_different_address' => $request->has('ship_to_different_address') ? 1 : 0,
+      'delivered' => 0,
+      'date_and_time' => Carbon::now(),
     ];
 
     // check if guest_id already has pending order
     $existingOrder = OrderDetail::where('guest_id', $guestId)
-        ->where('order_type', 'Pending')
-        ->first();
+      ->where('order_type', 'Pending')
+      ->first();
 
     if ($existingOrder) {
-        // update existing order
-        $existingOrder->update($orderData);
-        $order = $existingOrder;
+      // update existing order
+      $existingOrder->update($orderData);
+      $order = $existingOrder;
     } else {
-        // insert new order
-        $order = OrderDetail::create($orderData);
+      // insert new order
+      $order = OrderDetail::create($orderData);
     }
 
     // clear cart
@@ -141,11 +165,21 @@ class CartController extends Controller
 
 
     $home_banner = Banner::where('is_page', 1)
-        ->where('page', 'online_store')
-        ->where('status', 1)
-        ->first();
+      ->where('page', 'online_store')
+      ->where('status', 1)
+      ->first();
 
     return view('content/apps/place_order/index', compact('order', 'home_banner'));
-}
+  }
+
+  public function thank_you()
+  {
+    return view('content/apps/thank_you/thank_you');
+  }
+
+  public function failure()
+  {
+    return view('content/apps/failure/failure');
+  }
 
 }
