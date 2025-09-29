@@ -23,6 +23,19 @@ class HomeController extends Controller
     // $this->middleware('auth');
   }
 
+  public function storeGuestId(Request $request)
+  {
+    $guestId = $request->input('guestId');
+    // dd($guestId);
+    if ($guestId) {
+      session(['guest_id' => $guestId]);
+      // dd(session()->get('guest_id'));
+      return response()->json(['status' => 'success', 'guest_id' => $guestId]);
+    }
+
+    return response()->json(['status' => 'error', 'message' => 'No guestId provided'], 400);
+  }
+
   /**
    * Show the application dashboard.
    *

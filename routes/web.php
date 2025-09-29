@@ -195,7 +195,8 @@ Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.r
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.index');
 Route::post('/place_order', [CartController::class, 'place_order'])->name('place_order.index');
 
-
+Route::post('/store-guest-id', [HomeController::class, 'storeGuestId'])
+    ->name('store.guestId');
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

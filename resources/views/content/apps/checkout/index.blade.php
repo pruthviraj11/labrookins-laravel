@@ -201,7 +201,7 @@
                 <div class="col-12">
                     <div class="card p-3">
                         <h4 class="mb-3">Your Order</h4>
-                        <table class="table table-bordered">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Product</th>

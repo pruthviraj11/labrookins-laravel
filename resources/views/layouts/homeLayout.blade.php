@@ -82,16 +82,16 @@
                                     </ul>
                                 </li>
 
-                              
+
                                 @php $cartCount = session('cart') ? count(session('cart')) : 0; @endphp
-                                @if ($cartCount > 0)
-                                    <li>
-                                        <a class="nav-link scrollto" href="{{ route('cart.index') }}">
-                                            <i class="bi bi-cart-fill"></i>
-                                            <span class="badge bg-danger">{{ $cartCount }}</span>
-                                        </a>
-                                    </li>
-                                @endif
+                                {{-- @if ($cartCount > 0) --}}
+                                <li>
+                                    <a class="nav-link scrollto" href="{{ route('cart.index') }}">
+                                        <i class="bi bi-cart-fill"></i>
+                                        <span class="badge bg-danger">{{ $cartCount }}</span>
+                                    </a>
+                                </li>
+                                {{-- @endif --}}
                             </ul>
                             <i class="bi bi-list mobile-nav-toggle"></i>
                         </nav>
@@ -203,6 +203,31 @@
 
     <!-- Main JS -->
     <script src="{{ asset('home/assets/js/main.js') }}"></script>
+
+
+    <script>
+
+        var Gid = localStorage.getItem("guestId");
+// console.log(Gid,'hii')
+        if (!Gid) {
+            var timestamp = Date.now(); // example: 1757965810235
+            localStorage.setItem("guestId", timestamp);
+            Gid = timestamp;
+        }
+
+        // send to Laravel backend to store in session
+        $.ajax({
+            url: "{{ route('store.guestId') }}",
+            type: "POST",
+            data: {
+                guestId: Gid,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(response) {
+                // console.log("Guest ID stored successfully");
+            }
+        });
+    </script>
 
     @stack('scripts')
 </body>

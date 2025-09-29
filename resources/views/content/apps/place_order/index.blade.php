@@ -27,34 +27,43 @@
     </section>
 
     <div class="container mt-5">
-    <h2 class="mb-4">Complete Payment</h2>
-    <div class="card p-4">
-        {{-- <h4>Order Total: ${{ number_format($order->total, 2) }}</h4> --}}
+        {{-- <h2 class="mb-4">Complete Payment</h2> --}}
+        {{-- <div class="card p-4"> --}}
+
+        <h4>Order Total: ${{ number_format($order->total_amount, 2) }}</h4>
 
         {{-- <form action="{{ route('payment.process', $order->id) }}" method="POST"> --}}
         <form action="#" method="POST">
 
             @csrf
-            <div class="mb-3">
-                <label>Card Number <span class="text-danger">*</span> </label>
-                <input type="text" name="card_number" class="form-control" required>
-            </div>
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label>Exp Month <span class="text-danger">*</span></label>
-                    <input type="text" name="exp_month" class="form-control" required>
+                <div class="col-md-6 mb-4">
+                    <h2 style="color: #0072cf">Enter Credit Card Information</h2>
+                    <div class="mb-3">
+                        <label>Card Number <span class="text-danger">*</span> </label>
+                        <input type="text" name="card_number" class="form-control" required maxlength="16"
+                            pattern="\d{16}" inputmode="numeric" title="Please enter exactly 16 digits">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label>Exp Month <span class="text-danger">*</span></label>
+                            <input type="text" name="exp_month" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Exp Year <span class="text-danger">*</span></label>
+                            <input type="text" name="exp_year" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>CVC <span class="text-danger">*</span></label>
+                            <input type="text" name="cvc" class="form-control" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Pay Now</button>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label>Exp Year <span class="text-danger">*</span></label>
-                    <input type="text" name="exp_year" class="form-control" required>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label>CVC <span class="text-danger">*</span></label>
-                    <input type="text" name="cvc" class="form-control" required>
-                </div>
+                <div class="col-md-6"></div>
             </div>
-            <button type="submit" class="btn btn-success w-100">Pay Now</button>
         </form>
+        {{-- </div> --}}
     </div>
-</div>
 @endsection
