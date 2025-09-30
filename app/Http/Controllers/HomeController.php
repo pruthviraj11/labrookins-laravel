@@ -136,67 +136,132 @@ class HomeController extends Controller
 
   }
 
-  public function books()
+  public function books(Request $request)
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 1)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
+
+    $query = Product::where('category_id', 1)
+      ->where('status', 1);
+
+    if ($request->filled('q')) {
+      $search = $request->q;
+      $query->where(function ($q) use ($search) {
+        $q->where('product_name', 'like', "%{$search}%")
+          ->orWhere('product_description', 'like', "%{$search}%");
+      });
+    }
+
+    $books = $query->orderBy('id', 'desc')->paginate(12);
+    // $books = Product::where('category_id', 1)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
 
     return view('site.books', compact('home_banner', 'books'));
 
   }
 
-  public function sermon_manuscripts_downloaded()
+  public function sermon_manuscripts_downloaded(Request $request)
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 6)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
+    // $books = Product::where('category_id', 6)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
+    $query = Product::where('category_id', 6)
+      ->where('status', 1);
+
+    if ($request->filled('q')) {
+      $search = $request->q;
+      $query->where(function ($q) use ($search) {
+        $q->where('product_name', 'like', "%{$search}%")
+          ->orWhere('product_description', 'like', "%{$search}%");
+      });
+    }
+
+    $books = $query->orderBy('id', 'desc')->paginate(12);
 
     return view('site.sermon_manuscripts_downloaded', compact('home_banner', 'books'));
 
   }
 
-  public function sermon_manuscripts_shipped()
+  public function sermon_manuscripts_shipped(Request $request)
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 7)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
+    // $books = Product::where('category_id', 7)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
+    $query = Product::where('category_id', 7)
+      ->where('status', 1);
+
+    if ($request->filled('q')) {
+      $search = $request->q;
+      $query->where(function ($q) use ($search) {
+        $q->where('product_name', 'like', "%{$search}%")
+          ->orWhere('product_description', 'like', "%{$search}%");
+      });
+    }
+
+    $books = $query->orderBy('id', 'desc')->paginate(12);
 
     return view('site.sermon_manuscripts_shipped', compact('home_banner', 'books'));
 
   }
 
-  public function sermon_series_shipped()
+  public function sermon_series_shipped(Request $request)
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 8)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
+    // $books = Product::where('category_id', 8)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
+    $query = Product::where('category_id', 8)
+      ->where('status', 1);
 
+    if ($request->filled('q')) {
+      $search = $request->q;
+      $query->where(function ($q) use ($search) {
+        $q->where('product_name', 'like', "%{$search}%")
+          ->orWhere('product_description', 'like', "%{$search}%");
+      });
+    }
+
+    $books = $query->orderBy('id', 'desc')->paginate(12);
     return view('site.sermon_series_shipped', compact('home_banner', 'books'));
 
   }
 
-  public function workbooks_manuals()
+  public function workbooks_manuals(Request $request)
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 9)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
+    // $books = Product::where('category_id', 9)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
 
+    $query = Product::where('category_id', 9)
+      ->where('status', 1);
+
+    // ✅ Apply search filter if "q" exists
+    if ($request->filled('q')) {
+      $query->where('product_name', 'like', '%' . $request->q . '%');
+    }
+
+    $books = $query->orderBy('id', 'desc')->paginate(12);
 
     return view('site.workbooks_manuals', compact('home_banner', 'books'));
 
   }
 
-  public function other_products()
+  public function other_products(Request $request)
   {
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
-    $books = Product::where('category_id', 10)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
+    // $books = Product::where('category_id', 10)->where('status', 1)->orderBy('id', 'desc')->paginate(12);
+    $query = Product::where('category_id', 10)
+      ->where('status', 1);
 
+    // ✅ Apply search if query exists
+    if ($request->filled('q')) {
+      $query->where('product_name', 'like', '%' . $request->q . '%');
+    }
+
+    $books = $query->orderBy('id', 'desc')->paginate(12);
 
     return view('site.other_products', compact('home_banner', 'books'));
 

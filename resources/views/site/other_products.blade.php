@@ -53,12 +53,12 @@
 
                 <!-- Search -->
                 <div class="col-md-12 searchSection mb-3">
-                    <form method="GET" action="#">
-                        {{-- <form method="GET" action="{{ route('other_products') }}"> --}}
-
-                        <input type="text" name="q" class="form-control searchProducts" value="{{ request('q') }}"
-                            placeholder="Search Products...">
-                    </form>
+                   <form method="GET" action="{{ route('other-products') }}">
+    <input type="text" name="q"
+           class="form-control searchProducts"
+           value="{{ request('q') }}"
+           placeholder="Search Products...">
+</form>
                 </div>
 
                 <!-- Count -->
@@ -110,7 +110,9 @@
             <div class="pager Pagination">
                 <div class="col-md-12">
                     <div class="row">
-                        {{ $books->links('pagination::default') }}
+                        {{-- {{ $books->links('pagination::default') }} --}}
+                        {{ $books->appends(['q' => request('q')])->links('pagination::default') }}
+
                     </div>
                 </div>
             </div>

@@ -56,8 +56,7 @@
                 {{-- Search --}}
                 <div class="col-md-12 searchSection">
                     {{-- <form name="myform" method="GET" action="{{ route('books.search') }}"> --}}
-                    <form name="myform" method="GET" action="#">
-
+                    <form name="myform" method="GET" action="{{ route('books') }}">
                         <input type="text" class="form-control searchProducts" name="q" value="{{ request('q') }}"
                             placeholder="Search Products...">
                     </form>
@@ -110,7 +109,9 @@
             <div class="pager Pagination">
                 <div class="col-md-12">
                     <div class="row">
-                        {{ $books->links('pagination::default') }}
+                        {{-- {{ $books->links('pagination::default') }} --}}
+                        {{ $books->appends(request()->query())->links('pagination::default') }}
+
                     </div>
                 </div>
             </div>
