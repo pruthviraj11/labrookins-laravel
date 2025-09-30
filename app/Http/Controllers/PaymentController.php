@@ -83,8 +83,19 @@ class PaymentController extends Controller
           'order_type' => 'Completed',
 
         ]);
+        $cartItems = session()->get('cart', []); // get cart from session before clearing
+        $digitalProducts = [];
 
-        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\OrderPaidNotification($order));
+        foreach ($cartItems as $productId => $item) {
+          $product = \App\Models\Product::find($productId); // key is the product_id
+          if ($product && $product->product_digital === 'yes' && $product->download_document) {
+            $digitalProducts[] = [
+              'name' => $product->product_name,
+              'url' => asset('storage/products/documents/' . $product->download_document)
+            ];
+          }
+        }
+        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts));
 
         session()->forget('cart');
         session()->forget('guest_id');

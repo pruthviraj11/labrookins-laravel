@@ -11,18 +11,20 @@ use Illuminate\Queue\SerializesModels;
 
 class OrderPaidNotification extends Mailable
 {
-    use Queueable, SerializesModels;
+  use Queueable, SerializesModels;
 
-    public $order;
+  public $order;
+  public $digitalProducts;
 
-    public function __construct($order)
-    {
-        $this->order = $order;
-    }
+  public function __construct($order, $digitalProducts = [])
+  {
+    $this->order = $order;
+     $this->digitalProducts = $digitalProducts;
+  }
 
-    public function build()
-    {
-        return $this->subject('Order Confirmation - Order #' . $this->order->id)
-                    ->view('emails.order_confirmation');
-    }
+  public function build()
+  {
+    return $this->subject('Order Confirmation - Order #' . $this->order->id)
+      ->view('emails.order_confirmation');
+  }
 }
