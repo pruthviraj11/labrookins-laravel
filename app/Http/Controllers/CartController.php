@@ -75,7 +75,6 @@ class CartController extends Controller
 
   public function place_order(Request $request)
   {
-// dd($request->all());
     $cart = session()->get('cart', []);
     $guestId = session('guest_id');
 
@@ -103,11 +102,13 @@ class CartController extends Controller
     }
       $validated = $request->validate($rules);
     // calculate total
+
     $grandTotal = 0;
     foreach ($cart as $item) {
       $grandTotal += $item['price'] * $item['quantity'];
     }
-    $total = $grandTotal + 8.95; // shipping
+    $tax = $grandTotal * 0.10;
+    $total = $grandTotal + $tax + 8.95; // shipping
 
     // prepare order data
     $orderData = [

@@ -220,7 +220,7 @@
                             <div class="col-12">
                                 <label class="form-label">Email Address <span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" name="d_email" value="{{ old('d_email') }}">
-                                  @error('d_email')
+                                @error('d_email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -259,13 +259,20 @@
                                     <th>Subtotal</th>
                                     <th class="text-end">${{ number_format($grandTotal, 2) }}</th>
                                 </tr>
+
+                                @php $tax = $grandTotal * 0.10; @endphp
+                                <tr>
+                                    <th>Total Tax (10%)</th>
+                                    <th class="text-end">${{ number_format($tax, 2) }}</th>
+                                </tr>
+
                                 <tr>
                                     <th>Shipping</th>
                                     <th class="text-end">${{ number_format(8.95, 2) }}</th>
                                 </tr>
                                 <tr>
                                     <th>Total</th>
-                                    <th class="text-end">${{ number_format($grandTotal + 8.95, 2) }}</th>
+                                    <th class="text-end">${{ number_format($grandTotal + $tax + 8.95, 2) }}</th>
                                 </tr>
                             </tbody>
                         </table>

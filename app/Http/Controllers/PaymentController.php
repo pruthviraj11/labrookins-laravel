@@ -84,11 +84,13 @@ class PaymentController extends Controller
 
         ]);
 
+        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\OrderPaidNotification($order));
+
         session()->forget('cart');
         session()->forget('guest_id');
         return redirect()->route('thank_you.page')->with('success', 'Payment successful! Transaction ID: ' . $tResponse->getTransId());
       } else {
-        return redirect()->route('failure.page')->with('errors','');
+        return redirect()->route('failure.page')->with('errors', '');
         // return back()->withErrors(['payment' => 'Payment failed: ' . $tResponse->getErrors()[0]->getErrorText()]);
       }
     } else {

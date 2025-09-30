@@ -101,13 +101,14 @@
                                     <span>Subtotal</span>
                                     <span>${{ number_format($grandTotal, 2) }}</span>
                                 </li>
+
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Shipping</span>
-                                    <span>Free</span>
+                                    <span>$8.95</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between fw-bold">
                                     <span>Grand Total</span>
-                                    <span>${{ number_format($grandTotal, 2) }}</span>
+                                    <span>${{ number_format($grandTotal + 8.95, 2) }}</span>
                                 </li>
                             </ul>
                             <a href="{{ route('checkout.index') }}" class="btn btn-success w-100">Proceed to Checkout</a>
@@ -122,7 +123,8 @@
                     style="max-width:200px;">
                 <h4 class="fw-bold">Your cart is empty</h4>
                 <p class="text-muted">Looks like you haven't added anything yet.</p>
-                <a href="{{ url('/books') }}" class="btn btn-primary mt-3" style="background-color: #0072cf">Continue Shopping</a>
+                <a href="{{ url('/books') }}" class="btn btn-primary mt-3" style="background-color: #0072cf">Continue
+                    Shopping</a>
             </div>
         @endif
     </div>
