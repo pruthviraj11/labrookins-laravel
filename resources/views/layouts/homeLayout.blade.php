@@ -8,7 +8,7 @@
     <meta name="description" content="@yield('description', '')" />
     <meta name="keywords" content="@yield('keywords', '')" />
 
-    <link rel="icon" href="{{ asset('favicon') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('assets/img/favicon/favicon.png') }}" type="image/x-icon">
 
     <!-- Google Fonts / CSS -->
     <link href="{{ asset('home/assets/css/google_css.css') }}" rel="stylesheet" />
