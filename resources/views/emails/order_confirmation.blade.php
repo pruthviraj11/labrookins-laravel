@@ -79,12 +79,12 @@
                                     style="background:#e6fffa;border-left:5px solid #38b2ac;padding:20px 25px 10px 25px;border-radius:7px;margin-bottom:24px;">
                                     <h3 style="color:#22543d;margin:0 0 10px 0;font-size:17px;">Shipping Address</h3>
                                     <p style="color:#285e61;font-size:15px;line-height:1.6;margin:0;">
-                                        @if (empty($order->d_fname))
+                                        @if ($order->ship_to_different_address == 0)
                                             {{ $order->fname }} {{ $order->lname }}<br>
                                             {{ $order->street_address1 }}<br>
                                         @endif
 
-                                        @if ($order->street_address2)
+                                        @if ($order->ship_to_different_address == 1)
                                             {{ $order->d_fname }} {{ $order->d_lname }}<br>
                                             {{ $order->street_address2 }}<br>
                                         @endif

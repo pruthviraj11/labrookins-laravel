@@ -83,6 +83,7 @@ class PaymentController extends Controller
           'order_type' => 'Completed',
 
         ]);
+        // dd($order);
         $cartItems = session()->get('cart', []); // get cart from session before clearing
         $digitalProducts = [];
 
