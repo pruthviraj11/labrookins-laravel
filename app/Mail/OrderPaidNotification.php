@@ -13,13 +13,17 @@ class OrderPaidNotification extends Mailable
 {
   use Queueable, SerializesModels;
 
-  public $order;
-  public $digitalProducts;
+ public $order, $digitalProducts, $cartItems, $subtotal, $tax, $shipping, $total;
 
-  public function __construct($order, $digitalProducts = [])
+  public function __construct($order, $digitalProducts = [], $cartItems = [], $subtotal, $tax, $shipping, $total)
   {
     $this->order = $order;
-     $this->digitalProducts = $digitalProducts;
+    $this->digitalProducts = $digitalProducts;
+    $this->cartItems = $cartItems;
+      $this->subtotal = $subtotal;
+        $this->tax = $tax;
+        $this->shipping = $shipping;
+        $this->total = $total;
   }
 
   public function build()

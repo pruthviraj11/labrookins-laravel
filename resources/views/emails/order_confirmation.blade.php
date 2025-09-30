@@ -108,14 +108,61 @@
                                 </div>
                             @endif
 
-                            <!-- Thank You -->
-                            <div style="text-align:center;margin:38px 0;">
-                                <span style="font-size:46px;">🛒</span>
-                                <p style="font-size:16px;color:#2d3748;font-weight:600;margin-top:12px;">
-                                    Your order is being processed.<br>
-                                    <span style="color:#764ba2;">Thank you for shopping with us!</span>
-                                </p>
-                            </div>
+
+
+                            @if (!empty($cartItems))
+                                <h3 style="color:#2d3748;">Your Order Items</h3>
+                                <table width="100%" cellpadding="6" cellspacing="0"
+                                    style="border-collapse: collapse; margin-bottom: 30px; background:#f8fafc; border-radius:8px;">
+                                    <thead>
+                                        <tr style="background:#667eea; color:#fff; text-align:left;">
+                                            <th style="padding: 12px;">Product</th>
+                                            <th style="padding: 12px; text-align:center;">Quantity</th>
+                                            <th style="padding: 12px; text-align:right;">Price</th>
+                                            <th style="padding: 12px; text-align:right;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($cartItems as $item)
+                                            <tr style="border-top:1px solid #e2e8f0; vertical-align: middle;">
+                                                <td style="padding: 12px; display: flex; align-items: center;">
+                                                    <img src="{{ asset('storage/products/' . $item['image']) }}"
+                                                        alt="{{ $item['name'] }}" width="50"
+                                                        style="margin-right: 12px; border-radius: 6px;">
+                                                    {{ $item['name'] }}
+                                                </td>
+                                                <td style="padding: 12px; text-align:center;">{{ $item['quantity'] }}
+                                                </td>
+                                                <td style="padding: 12px; text-align:right;">
+                                                    ${{ number_format($item['price'], 2) }}</td>
+                                                <td style="padding: 12px; text-align:right;">
+                                                    ${{ number_format($item['quantity'] * $item['price'], 2) }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <table width="100%" cellpadding="6" cellspacing="0" style="margin-bottom:25px;">
+                                    <tr>
+                                        <td style="color:#222;">Subtotal:</td>
+                                        <td style="text-align:right;">${{ number_format($subtotal, 2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:#222;">Total Tax (10%):</td>
+                                        <td style="text-align:right;">${{ number_format($tax, 2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:#222;">Shipping:</td>
+                                        <td style="text-align:right;">${{ number_format($shipping, 2) }}</td>
+                                    </tr>
+                                    <tr style="font-weight:bold; border-top:1px solid #667eea;">
+                                        <td style="color:#2d3748;">Total:</td>
+                                        <td style="text-align:right; color:#764ba2;">${{ number_format($total, 2) }}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            @endif
 
                             @if (!empty($digitalProducts))
                                 <div
@@ -139,6 +186,14 @@
                             @endif
                             <!-- Order Summary Button -->
 
+                            <!-- Thank You -->
+                            <div style="text-align:center;margin:38px 0;">
+                                <span style="font-size:46px;">🛒</span>
+                                <p style="font-size:16px;color:#2d3748;font-weight:600;margin-top:12px;">
+                                    Your order is being processed.<br>
+                                    <span style="color:#764ba2;">Thank you for shopping with us!</span>
+                                </p>
+                            </div>
                         </td>
                     </tr>
 
@@ -150,8 +205,8 @@
                             </p>
                             <p style="margin:8px 0 0 0;color:#4a5568;font-size:13px;">
                                 Need help? Email
-                                <a href="mailto:support@{{ config('app.domain', 'yourdomain.com') }}"
-                                    style="color:#667eea;text-decoration:none;">support@{{ config('app.domain', 'yourdomain.com') }}</a>
+                                <a href="mailto:support@labrookins.com"
+                                    style="color:#667eea;text-decoration:none;">support@labrookins.com</a>
                             </p>
                             <p style="margin:8px 0 0 0;color:#a0aec0;font-size:12px;line-height:1.6;">
                                 © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.

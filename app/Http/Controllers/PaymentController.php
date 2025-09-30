@@ -85,6 +85,21 @@ class PaymentController extends Controller
         ]);
         // dd($order);
         $cartItems = session()->get('cart', []); // get cart from session before clearing
+
+
+        // Initialize totals
+        $subtotal = 0;
+        $taxRate = 0.10; // 10%, or adjust as needed
+        $shipping = 8.95; // Fixed example shipping charge, replace with your logic if variable
+
+        foreach ($cartItems as $item) {
+          $lineTotal = $item['price'] * $item['quantity'];
+          $subtotal += $lineTotal;
+        }
+
+        $tax = $subtotal * $taxRate;
+        $total = $subtotal + $tax + $shipping;
+
         $digitalProducts = [];
 
         foreach ($cartItems as $productId => $item) {
@@ -96,7 +111,7 @@ class PaymentController extends Controller
             ];
           }
         }
-        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts));
+        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts, $cartItems, $subtotal, $tax, $shipping, $total));
 
         session()->forget('cart');
         session()->forget('guest_id');
