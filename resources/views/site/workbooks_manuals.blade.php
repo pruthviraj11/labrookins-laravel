@@ -121,7 +121,7 @@
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+{{-- <script>
 $(document).ready(function() {
     $(".add_to_cart_button").on("click", function(e) {
         e.preventDefault();
@@ -151,6 +151,63 @@ $(document).ready(function() {
             }
         });
     });
+});
+</script> --}}
+
+<script>
+$(document).ready(function() {
+
+    // AJAX Search on keyup/change
+    $(".searchProducts").on("keyup change", function() {
+        let q = $(this).val();
+
+        $.ajax({
+            url: "{{ route('workbooks-manuals') }}",
+            type: "GET",
+            data: { q: q },
+            success: function(res) {
+                // Extract updated HTML from returned page
+                let htmlData = $(res).find(".mainData").html();
+                let countData = $(res).find(".CountSection").html();
+                let pagerData = $(res).find(".Pagination").html();
+
+                // Replace current content
+                $(".mainData").html(htmlData);
+                $(".CountSection").html(countData);
+                $(".Pagination").html(pagerData);
+            }
+        });
+    });
+
+    // Add to Cart
+    $(document).on("click", ".add_to_cart_button", function(e) {
+        e.preventDefault();
+        var pid = $(this).data("pid");
+
+        $.ajax({
+            url: "{{ route('cart.add') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                pid: pid
+            },
+            success: function(res) {
+                if(res.status === "success"){
+                    $(".viewCart_" + pid).show();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: res.message,
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true,
+                        position: 'top-end'
+                    });
+                }
+            }
+        });
+    });
+
 });
 </script>
 

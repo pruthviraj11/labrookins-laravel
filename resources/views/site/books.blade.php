@@ -122,7 +122,7 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $(".add_to_cart_button").on("click", function(e) {
                 e.preventDefault();
@@ -153,5 +153,60 @@
                 });
             });
         });
-    </script>
+    </script> --}}
+
+    <script>
+    $(document).ready(function() {
+        // AJAX Search
+        $(".searchProducts").on("keyup change", function() {
+            let q = $(this).val();
+
+            $.ajax({
+                url: "{{ route('books') }}",
+                type: "GET",
+                data: { q: q },
+                success: function(res) {
+                    // Replace entire content with filtered results
+                    let htmlData = $(res).find(".mainData").html();
+                    let countData = $(res).find(".countProducts").html();
+                    let pagerData = $(res).find(".Pagination").html();
+
+                    $(".mainData").html(htmlData);
+                    $(".countProducts").html(countData);
+                    $(".Pagination").html(pagerData);
+                }
+            });
+        });
+
+        // Add to Cart
+        $(document).on("click", ".add_to_cart_button", function(e) {
+            e.preventDefault();
+            var pid = $(this).data("pid");
+
+            $.ajax({
+                url: "{{ route('cart.add') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    pid: pid
+                },
+                success: function(res) {
+                    if (res.status === "success") {
+                        $(".viewCart_" + pid).show();
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: res.message,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            toast: true,
+                            position: 'top-end'
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+
 @endpush

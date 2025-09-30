@@ -53,12 +53,10 @@
 
                 <!-- Search -->
                 <div class="col-md-12 searchSection mb-3">
-                   <form method="GET" action="{{ route('other-products') }}">
-    <input type="text" name="q"
-           class="form-control searchProducts"
-           value="{{ request('q') }}"
-           placeholder="Search Products...">
-</form>
+                    <form method="GET" action="{{ route('other-products') }}">
+                        <input type="text" name="q" class="form-control searchProducts" value="{{ request('q') }}"
+                            placeholder="Search Products...">
+                    </form>
                 </div>
 
                 <!-- Count -->
@@ -95,8 +93,8 @@
                             data-price="{{ $book->product_price }}" rel="nofollow">
                             Add to cart
                         </a>
-                        <a href="{{ route('cart.index') }}" class="viewCart_{{ $book->id }} add_to_cart_button_2 btn" rel="nofollow"
-                            style="display:none;">
+                        <a href="{{ route('cart.index') }}" class="viewCart_{{ $book->id }} add_to_cart_button_2 btn"
+                            rel="nofollow" style="display:none;">
                             View cart
                         </a>
                         <hr class="position_ab">
@@ -122,10 +120,67 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script>
+        $(document).ready(function() {
+            $(".add_to_cart_button").on("click", function(e) {
+                e.preventDefault();
+                var pid = $(this).data("pid");
+
+                $.ajax({
+                    url: "{{ route('cart.add') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        pid: pid
+                    },
+                    success: function(res) {
+                        if (res.status === "success") {
+                            $(".viewCart_" + pid).show();
+
+                            // SweetAlert2 Toast
+                            Swal.fire({
+                                icon: 'success',
+                                title: res.message,
+                                showConfirmButton: false,
+                                timer: 2000,
+                                toast: true,
+                                position: 'top-end'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script> --}}
+
+    <script>
 $(document).ready(function() {
-    $(".add_to_cart_button").on("click", function(e) {
+
+    // AJAX Search on keyup/change
+    $(".searchProducts").on("keyup change", function() {
+        let q = $(this).val();
+
+        $.ajax({
+            url: "{{ route('other-products') }}",
+            type: "GET",
+            data: { q: q },
+            success: function(res) {
+                // Extract updated HTML from returned page
+                let htmlData = $(res).find(".mainData").html();
+                let countData = $(res).find(".CountSection").html();
+                let pagerData = $(res).find(".Pagination").html();
+
+                // Replace current content
+                $(".mainData").html(htmlData);
+                $(".CountSection").html(countData);
+                $(".Pagination").html(pagerData);
+            }
+        });
+    });
+
+    // Add to Cart
+    $(document).on("click", ".add_to_cart_button", function(e) {
         e.preventDefault();
         var pid = $(this).data("pid");
 
@@ -140,7 +195,6 @@ $(document).ready(function() {
                 if(res.status === "success"){
                     $(".viewCart_" + pid).show();
 
-                    // SweetAlert2 Toast
                     Swal.fire({
                         icon: 'success',
                         title: res.message,
@@ -153,7 +207,7 @@ $(document).ready(function() {
             }
         });
     });
+
 });
 </script>
-
 @endpush

@@ -57,12 +57,12 @@
                         <h2 class="product__title">{{ $book->product_name }}</h2>
                         <span class="price">${{ number_format($book->product_price, 2) }}</span>
 
-                       <a class="add_to_cart_button btn" data-pid="{{ $book->id }}"
+                        <a class="add_to_cart_button btn" data-pid="{{ $book->id }}"
                             data-price="{{ $book->product_price }}" rel="nofollow">
                             Add to cart
                         </a>
-                        <a href="{{ route('cart.index') }}" class="viewCart_{{ $book->id }} add_to_cart_button_2 btn" rel="nofollow"
-                            style="display:none;">
+                        <a href="{{ route('cart.index') }}" class="viewCart_{{ $book->id }} add_to_cart_button_2 btn"
+                            rel="nofollow" style="display:none;">
                             View cart
                         </a>
                         <hr class="position_ab">
@@ -86,8 +86,8 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script>
 $(document).ready(function() {
     $(".add_to_cart_button").on("click", function(e) {
         e.preventDefault();
@@ -118,7 +118,64 @@ $(document).ready(function() {
         });
     });
 });
-</script>
+</script> --}}
 
+    <script>
+        $(document).ready(function() {
+
+            // AJAX Search on keyup/change
+            $(".searchProducts").on("keyup change", function() {
+                let q = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('sermon-manuscripts-downloaded') }}",
+                    type: "GET",
+                    data: {
+                        q: q
+                    },
+                    success: function(res) {
+                        // Extract the updated HTML from returned page
+                        let htmlData = $(res).find(".mainData").html();
+                        let countData = $(res).find(".countProducts").html();
+                        let pagerData = $(res).find(".Pagination").html();
+
+                        // Replace current content
+                        $(".mainData").html(htmlData);
+                        $(".countProducts").html(countData);
+                        $(".Pagination").html(pagerData);
+                    }
+                });
+            });
+
+            // Add to Cart
+            $(document).on("click", ".add_to_cart_button", function(e) {
+                e.preventDefault();
+                var pid = $(this).data("pid");
+
+                $.ajax({
+                    url: "{{ route('cart.add') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        pid: pid
+                    },
+                    success: function(res) {
+                        if (res.status === "success") {
+                            $(".viewCart_" + pid).show();
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: res.message,
+                                showConfirmButton: false,
+                                timer: 2000,
+                                toast: true,
+                                position: 'top-end'
+                            });
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
 @endpush
-
