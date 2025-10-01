@@ -102,13 +102,21 @@
                                     <span>${{ number_format($grandTotal, 2) }}</span>
                                 </li>
 
+
+                                @php
+                                    $tax = $grandTotal * 0.1; // 10% tax
+                                @endphp
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Tax (10%)</span>
+                                    <span>${{ number_format($tax, 2) }}</span>
+                                </li>
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Shipping</span>
                                     <span>$8.95</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between fw-bold">
-                                    <span>Grand Total</span>
-                                    <span>${{ number_format($grandTotal + 8.95, 2) }}</span>
+                                    <span>Total</span>
+                                    <span>${{ number_format($grandTotal + $tax + 8.95, 2) }}</span>
                                 </li>
                             </ul>
                             <a href="{{ route('checkout.index') }}" class="btn btn-success w-100">Proceed to Checkout</a>

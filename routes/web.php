@@ -199,6 +199,8 @@ Route::post('/place_order', [CartController::class, 'place_order'])->name('place
 Route::post('/payment/process/{order}', [PaymentController::class, 'processPayment'])->name('payment.process');
 Route::get('/thank_you', [CartController::class, 'thank_you'])->name('thank_you.page');
 Route::get('/failure', [CartController::class, 'failure'])->name('failure.page');
+Route::post('/authorize', [PaymentController::class, 'online_donation_authorize'])->name('authorize');
+
 
 
 

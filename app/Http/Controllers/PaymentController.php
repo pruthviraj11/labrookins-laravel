@@ -111,7 +111,7 @@ class PaymentController extends Controller
             ];
           }
         }
-// $order->email
+        // $order->email
         \Mail::to($order->email)->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts, $cartItems, $subtotal, $tax, $shipping, $total));
 
         session()->forget('cart');
@@ -125,5 +125,19 @@ class PaymentController extends Controller
       $error = $response->getMessages()->getMessage()[0]->getText() ?? 'Unknown error';
       return back()->withErrors(['payment' => 'Payment failed: ' . $error]);
     }
+  }
+
+  public function online_donation_authorize(Request $request)
+  {
+    $data = [
+      'page_name' => 'Donation',
+      'page_title' => 'Donation',
+      'page_url' => 'Donation',
+      'item_name' => 'donation',
+      'invoice' => date('YmdHis'), // current timestamp
+    ];
+
+    // Return view (resources/views/authorize.blade.php)
+    return view('content/apps/authorize/authorize', $data);
   }
 }

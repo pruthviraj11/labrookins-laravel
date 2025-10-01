@@ -49,7 +49,7 @@
                         {{-- Right Column (Form) --}}
                         <div class="col-md-12 col-lg-12 col-xl-6">
                             {{-- <form action="{{ route('donation.submit') }}" method="POST"> --}}
-                            <form action="#" method="POST">
+                            <form action="{{ route('authorize')}}" method="POST">
 
                                 @csrf
                                 <div class="formbox">
