@@ -101,7 +101,7 @@
         @endif
         @if ($configData['hasCustomizer'] == true)
             <!-- Style Switcher -->
-            <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+            {{-- <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <i class='ti ti-md'></i>
                 </a>
@@ -122,7 +122,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <!--/ Style Switcher -->
         @endif
 
@@ -438,8 +438,8 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item"
-                        href="{{ Route::has('profile.show') ? route('profile.show') : url('pages/profile-user') }}">
+                    {{-- <a class="dropdown-item"
+                        href="#"> --}}
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                                 <div class="avatar avatar-online">
@@ -458,18 +458,18 @@
                                 <small class="text-muted">Admin</small>
                             </div>
                         </div>
-                    </a>
+                    {{-- </a> --}}
                 </li>
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="dropdown-item"
                         href="{{ Route::has('profile.show') ? route('profile.show') : url('pages/profile-user') }}">
                         <i class="ti ti-user-check me-2 ti-sm"></i>
                         <span class="align-middle">My Profile</span>
                     </a>
-                </li>
+                </li> --}}
                 {{-- @if (Auth::check() && Laravel\Jetstream\Jetstream::hasApiFeatures()) --}}
                 {{-- <li>
                     <a class="dropdown-item" href="{{ route('api-tokens.index') }}">

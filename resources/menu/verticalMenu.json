@@ -24,17 +24,8 @@
           "url": "app/users/list",
           "name": "Users List",
           "slug": "app-users-list"
-        },
-        {
-          "url": "app/site-users/list",
-          "name": "Customers",
-          "icon": "users",
-          "slug": "app-site-users-list",
-          "permission": [
-            "user-list",
-            "user-create"
-          ]
         }
+
       ]
     },
     {

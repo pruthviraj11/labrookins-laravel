@@ -116,12 +116,12 @@
                 </table>
 
                 <!-- View More Details Button -->
-                <p style="margin-top:30px; text-align:center;">
+                {{-- <p style="margin-top:30px; text-align:center;">
                     <a href="{{ url('/admin/orders/' . $order->id) }}"
                         style="background-color:#3498db; color:#fff; padding:12px 24px; border-radius:5px; font-weight:600; text-decoration:none; box-shadow:0 3px 8px rgba(52, 152, 219, 0.5); display:inline-block; transition:background-color 0.3s;">
                         View Order Details
                     </a>
-                </p>
+                </p> --}}
 
                 <!-- Footer -->
                 <p style="margin-top:40px; font-size:14px; color:#667eea; font-weight:700; text-align:center;">
