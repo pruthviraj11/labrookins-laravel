@@ -81,12 +81,12 @@
                                     <p style="color:#285e61;font-size:15px;line-height:1.6;margin:0;">
                                         @if ($order->ship_to_different_address == 0)
                                             {{ $order->fname }} {{ $order->lname }}<br>
-                                            {{ $order->street_address1 }}<br>
+                                            {{ $order->street_address1 . ' ' . $order->street_address2 }}<br>
                                         @endif
 
                                         @if ($order->ship_to_different_address == 1)
                                             {{ $order->d_fname }} {{ $order->d_lname }}<br>
-                                            {{ $order->street_address2 }}<br>
+                                            {{ $order->d_street_address1 . ' ' . $order->d_street_address2 }}<br>
                                         @endif
                                         {{ $order->city }}, {{ $order->state }} {{ $order->zip_code }}<br>
                                         @if ($order->country)

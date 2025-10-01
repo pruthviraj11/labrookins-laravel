@@ -66,7 +66,7 @@
             <div class="row services">
 
                 <div class="services-col col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <a href="#">
+                    <a href="{{$quick_links->url1}}">
                         <div class="services-image">
                              <img src="{{ asset('storage/'.$quick_links->image1) }}" alt="Quick Link">
                         </div>
@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="services-col col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <a href="#">
+                    <a href="{{$quick_links->url2}}">
                         <div class="services-image">
                             <img src="{{ asset('storage/'.$quick_links->image2) }}">
                         </div>
@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="services-col col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <a href="#">
+                    <a href="{{$quick_links->url3}}">
                         <div class="services-image">
                             <img src="{{ asset('storage/'.$quick_links->image3) }}">
                         </div>
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="services-col col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <a href="#">
+                    <a href="{{$quick_links->url4}}">
                         <div class="services-image">
                             <img src="{{ asset('storage/'.$quick_links->image4) }}">
                         </div>

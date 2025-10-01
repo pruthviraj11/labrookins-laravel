@@ -42,12 +42,12 @@
                 <p style="margin:0; font-size:15px; color:#555;">
                     @if ($order->ship_to_different_address == 0)
                         {{ $order->fname }} {{ $order->lname }}<br>
-                        {{ $order->street_address1 }}<br>
+                        {{ $order->street_address1 ." ". $order->street_address2 }}<br>
                     @endif
 
                     @if ($order->ship_to_different_address == 1)
                         {{ $order->d_fname }} {{ $order->d_lname }}<br>
-                        {{ $order->street_address2 }}<br>
+                        {{ $order->d_street_address1 ." ". $order->d_street_address2 }}<br>
                     @endif
                     @if ($order->city)
                         {{ $order->city }},
