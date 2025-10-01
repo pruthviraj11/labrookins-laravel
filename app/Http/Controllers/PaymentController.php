@@ -111,6 +111,8 @@ class PaymentController extends Controller
             ];
           }
         }
+
+        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\AdminOrderNotification($order, $cartItems, $subtotal, $tax, $shipping, $total));
         // $order->email
         \Mail::to($order->email)->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts, $cartItems, $subtotal, $tax, $shipping, $total));
 

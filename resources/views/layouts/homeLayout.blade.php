@@ -116,7 +116,7 @@
 
                 <div class="col-md-2 footercontent_center">
                     <a href="{{ url('scheduling') }}">Scheduling</a>
-                    <a href="{{ url('itinerary') }}">Itinerary</a>
+                    <a href="{{ url('site.itinerary') }}">Itinerary</a>
                     <a href="{{ url('contact_us') }}">Contact Us</a>
                 </div>
 
@@ -161,6 +161,9 @@
                                             style="background: url({{ asset('home/assets/img/social_icon.png') }}) no-repeat;"></i>
                                     </a>
                                 </li>
+                                    {{-- <img src="{{ asset('home/assets/img/twt.png') }}" width=""> --}}
+
+
                             </ul>
 
                             <div class="powerd-by">
