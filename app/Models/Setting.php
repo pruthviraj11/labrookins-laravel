@@ -11,6 +11,6 @@ class Setting extends Model
         'smtp_email', 'smtp_pass', 'address',
         'facebook', 'twitter', 'instagram', 'youtube',
         'prayer_request_email', 'contact_form', 'user_nicename',
-        'image', 'scheduling_email'
+        'image', 'scheduling_email','admin_order_email'
     ];
 }

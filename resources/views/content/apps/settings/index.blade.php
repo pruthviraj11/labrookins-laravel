@@ -104,6 +104,11 @@
                         <input type="email" name="scheduling_email" class="form-control"
                             value="{{ old('scheduling_email', $setting->scheduling_email ?? '') }}">
                     </div>
+                     <div class="col-md-6 mb-3">
+                        <label>Admin Order Notification Email</label>
+                        <input type="email" name="admin_order_email" class="form-control"
+                            value="{{ old('admin_order_email', $setting->admin_order_email ?? '') }}">
+                    </div>
                 </div>
 
                 <div class="mt-4 d-flex justify-content-end">

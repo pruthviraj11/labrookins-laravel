@@ -26,7 +26,6 @@
 
         <h2 class="mb-4">Checkout</h2>
 
-
         <form action="{{ route('place_order.index') }}" method="POST">
             @csrf
             <div class="row">
@@ -137,11 +136,11 @@
                     <div class="form-check mb-2">
                         <input class="form-check-input" type="checkbox" id="differentShipping"
                             name="ship_to_different_address"
-                            {{ old('ship_to_different_address', 'checked') ? 'checked' : '' }}>
+                            {{ old('ship_to_different_address') ? 'checked' : '' }}>
                         <label class="form-check-label" for="differentShipping">Ship to a different address?</label>
                     </div>
 
-                    <div id="shippingFields" class="{{ old('ship_to_different_address', 'checked') ? '' : 'd-none' }}">
+                    <div id="shippingFields" class="{{ old('ship_to_different_address') ? '' : 'd-none' }}">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">First Name <span class="text-danger">*</span> </label>
@@ -286,13 +285,18 @@
 
     @push('scripts')
         <script>
-            // Show/hide shipping fields
-            document.getElementById('differentShipping').addEventListener('change', function() {
-                document.getElementById('shippingFields').classList.toggle('d-none', !this.checked);
-            });
+            document.addEventListener("DOMContentLoaded", function () {
+                const checkbox = document.getElementById('differentShipping');
+                const shippingFields = document.getElementById('shippingFields');
 
-            // Show shipping fields by default
-            document.getElementById('shippingFields').classList.remove('d-none');
+                // On load → set correct state
+                shippingFields.classList.toggle('d-none', !checkbox.checked);
+
+                // On change → toggle visibility
+                checkbox.addEventListener('change', function () {
+                    shippingFields.classList.toggle('d-none', !this.checked);
+                });
+            });
         </script>
     @endpush
 @endsection

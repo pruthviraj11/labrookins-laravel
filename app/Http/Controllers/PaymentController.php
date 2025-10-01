@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Models\OrderDetail;
 use net\authorize\api\contract\v1 as AnetAPI;
@@ -112,7 +113,8 @@ class PaymentController extends Controller
           }
         }
 
-        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\AdminOrderNotification($order, $cartItems, $subtotal, $tax, $shipping, $total));
+        $setting = Setting::first();
+        \Mail::to($setting->admin_order_email)->send(new \App\Mail\AdminOrderNotification($order, $cartItems, $subtotal, $tax, $shipping, $total));
         // $order->email
         \Mail::to($order->email)->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts, $cartItems, $subtotal, $tax, $shipping, $total));
 
