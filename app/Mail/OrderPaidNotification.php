@@ -33,14 +33,16 @@ class OrderPaidNotification extends Mailable
     $mail = $this->subject('Order Confirmation - Order #' . $this->order->id)
       ->view('emails.order_confirmation');
 
-    // Attach all digital products (if any)
-    foreach ($this->digitalProducts as $digital) {
-      $filePath = storage_path('app/public/products/documents/' . basename($digital['url']));
-      if (file_exists($filePath)) {
-        $mail->attach($filePath, [
-          'as' => $digital['name'] . '.' . pathinfo($filePath, PATHINFO_EXTENSION),
-          'mime' => mime_content_type($filePath),
-        ]);
+    if (!empty($this->digitalProducts)) {
+      // Attach all digital products (if any)
+      foreach ($this->digitalProducts as $digital) {
+        $filePath = storage_path('app/public/products/documents/' . basename($digital['url']));
+        if (file_exists($filePath)) {
+          $mail->attach($filePath, [
+            'as' => $digital['name'] . '.' . pathinfo($filePath, PATHINFO_EXTENSION),
+            'mime' => mime_content_type($filePath),
+          ]);
+        }
       }
     }
 

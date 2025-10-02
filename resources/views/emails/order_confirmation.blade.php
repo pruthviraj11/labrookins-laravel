@@ -126,10 +126,17 @@
                                         @foreach ($cartItems as $item)
                                             <tr style="border-top:1px solid #e2e8f0; vertical-align: middle;">
                                                 <td style="padding: 12px; display: flex; align-items: center;">
-                                                    <img src="{{ asset('storage/products/' . $item['image']) }}"
-                                                        alt="{{ $item['name'] }}" width="50"
-                                                        style="margin-right: 12px; border-radius: 6px;">
-                                                    {{ $item['name'] }}
+                                                    @if (!empty($item['image']))
+                                                        <img src="{{ asset('storage/products/' . $item['image']) }}"
+                                                            alt="{{ $item['name'] }}" width="50"
+                                                            style="margin-right: 12px; border-radius: 6px;">
+                                                        {{ $item['name'] }}
+                                                    @else
+                                                        <div class="d-flex align-items-center justify-content-center bg-light text-muted cart-img"
+                                                            style="height:120px;">
+                                                            No Image
+                                                        </div>
+                                                    @endif
                                                 </td>
                                                 <td style="padding: 12px; text-align:center;">{{ $item['quantity'] }}
                                                 </td>
