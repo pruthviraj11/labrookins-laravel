@@ -167,20 +167,9 @@
                             @if (!empty($digitalProducts))
                                 <div
                                     style="background:#fff3f3;border-left:5px solid #f56565;padding:20px 25px;border-radius:7px;margin-bottom:24px;">
-                                    <h3 style="color:#c53030;margin-bottom:10px;">Download Your Digital Products</h3>
-                                    <ul style="margin:0;padding-left:20px;">
-                                        @foreach ($digitalProducts as $digital)
-                                            <li style="margin-bottom:8px;font-size:15px;">
-                                                <a href="{{ $digital['url'] }}"
-                                                    style="color:#e53e3e;text-decoration:none;font-weight:600;">
-                                                    {{ $digital['name'] }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    <p style="color:#718096;font-size:13px;margin-top:10px;">
-                                        Click the link(s) to download your digital product(s). They are available
-                                        immediately after purchase.
+                                    <h3 style="color:#c53030;margin-bottom:10px;">Digital Products</h3>
+                                    <p style="color:#718096;font-size:14px;">
+                                        Your purchased digital product(s) are attached with this email.
                                     </p>
                                 </div>
                             @endif

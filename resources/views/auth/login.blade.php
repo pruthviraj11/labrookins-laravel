@@ -51,9 +51,12 @@
                 <div class="w-px-400 mx-auto">
                     <!-- Logo -->
                     <div class="app-brand mb-4 text-center">
-                        <a href="{{ url('/') }}" class="app-brand-link gap-2">
+                        <a href="{{ url('/') }}" class="app-brand-link gap-2 mx-auto">
+                              <img src="{{asset('assets/img/favicon/favicon.png')}}" alt="" class=" ">
+
                             <span class="app-brand-logo demo">
-                                @include('_partials.macros', ['height' => 20, 'withbg' => 'fill: #fff;'])
+                              {{-- <img src="{{asset('assets/img/favicon/favicon.png')}}" alt="" class=""> --}}
+                                {{-- @include('_partials.macros', ['height' => 20, 'withbg' => 'fill: #fff;']) --}}
                             </span>
                         </a>
                     </div>
