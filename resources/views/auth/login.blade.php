@@ -86,7 +86,7 @@
                                 <label class="form-label" for="password">Password</label>
                                 @if (Route::has('password.request'))
                                     <a href="{{ route('password.request') }}">
-                                        <small>Forgot Password?</small>
+                                        <small class="text-dark">Forgot Password?</small>
                                     </a>
                                 @endif
                             </div>
@@ -122,7 +122,7 @@
                         <p class="text-center mt-3">
                             <span>New on our platform?</span>
                             <a href="{{ route('register') }}">
-                                <span>Create an account</span>
+                                <span class="text-dark">Create an account</span>
                             </a>
                         </p>
                     @endif
