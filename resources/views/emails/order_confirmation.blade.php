@@ -136,6 +136,7 @@
                                                             style="height:120px;">
                                                             No Image
                                                         </div>
+                                                        {{ $item['name'] }}
                                                     @endif
                                                 </td>
                                                 <td style="padding: 12px; text-align:center;">{{ $item['quantity'] }}
