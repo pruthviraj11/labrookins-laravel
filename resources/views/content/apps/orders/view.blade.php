@@ -72,9 +72,11 @@
                             $shipping = '8.95';
 
                             // Compute total dynamically if not already in DB
-                            $grandTotal = isset($order->total_amount)
-                                ? floatval($order->total_amount)
-                                : round($subtotal + $tax + $shipping, 2);
+                            // $grandTotal = isset($order->total_amount)
+                            //     ? floatval($order->total_amount)
+                            //     : round($subtotal + $tax + $shipping, 2);
+
+                                $grandTotal = $subtotal + $tax + $shipping;
                         @endphp
                         <table class="table table-borderless w-auto text-end">
                             <tbody>
