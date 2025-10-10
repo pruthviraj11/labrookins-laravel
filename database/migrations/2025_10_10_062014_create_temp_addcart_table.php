@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->enum('order_status', ['pending', 'completed'])->nullable();
             $table->string('order_date', 20)->nullable();
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

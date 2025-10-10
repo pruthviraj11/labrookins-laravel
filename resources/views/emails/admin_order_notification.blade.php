@@ -42,12 +42,12 @@
                 <p style="margin:0; font-size:15px; color:#555;">
                     @if ($order->ship_to_different_address == 0)
                         {{ $order->fname }} {{ $order->lname }}<br>
-                        {{ $order->street_address1 ." ". $order->street_address2 }}<br>
+                        {{ $order->street_address1 . ' ' . $order->street_address2 }}<br>
                     @endif
 
                     @if ($order->ship_to_different_address == 1)
                         {{ $order->d_fname }} {{ $order->d_lname }}<br>
-                        {{ $order->d_street_address1 ." ". $order->d_street_address2 }}<br>
+                        {{ $order->d_street_address1 . ' ' . $order->d_street_address2 }}<br>
                     @endif
                     @if ($order->city)
                         {{ $order->city }},
@@ -79,9 +79,16 @@
                         @foreach ($cartItems as $item)
                             <tr style="border-top:1px solid #e1e5eb;">
                                 <td style="padding:12px; display:flex; align-items:center;">
-                                    <img src="{{ asset('storage/products/' . $item['image']) }}"
-                                        alt="{{ $item['name'] }}" width="50"
-                                        style="margin-right:12px; border-radius:6px;" />
+                                    @if (!empty($item['image']) && file_exists(storage_path('app/public/products/' . $item['image'])))
+                                        <img src="{{ asset('storage/products/' . $item['image']) }}"
+                                            alt="{{ $item['name'] }}" width="50"
+                                            style="margin-right:12px; border-radius:6px;" />
+                                    @else
+                                        <span
+                                            style="display:inline-flex; justify-content:center; align-items:center; width:50px; height:50px; margin-right:12px; border-radius:6px; background:#f0f0f0; color:#555; font-size:12px;">
+                                            No Image
+                                        </span>
+                                    @endif
                                     {{ $item['name'] }}
                                 </td>
                                 <td style="padding:12px; text-align:center;">{{ $item['quantity'] }}</td>
