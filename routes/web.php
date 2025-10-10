@@ -548,6 +548,8 @@ Route::prefix('app')->middleware(['auth'])->group(function () {
   Route::get('orders/{id}', [OrderDetailController::class, 'show'])->name('orders.show');
   Route::delete('orders/{id}', [OrderDetailController::class, 'destroy'])->name('orders.destroy');
   Route::get('orders-export', [OrderDetailController::class, 'export'])->name('orders.export');
+  Route::post('orders/{id}', [OrderDetailController::class, 'order_status'])->name('orders.order_status');
+
 
 });
 

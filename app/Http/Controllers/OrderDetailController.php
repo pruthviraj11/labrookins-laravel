@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrderDetail;
+use App\Models\TempAddcart;
 use App\Services\OrderDetailService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -58,7 +59,13 @@ class OrderDetailController extends Controller
   public function show($id)
   {
     $order = $this->service->find($id);
-    return view('content/apps/orders.view', compact('order'));
+    // dd($order->guest_id);
+    $product_data = TempAddcart::select('temp_addcart.*', 'products.product_name', 'products.product_description', 'products.product_image')
+    ->leftJoin('products', 'temp_addcart.product_id', '=', 'products.id')
+    ->where('temp_addcart.guest_id', $order->guest_id)->get();
+    // dd($product_data);
+    // $product_details =
+    return view('content/apps/orders.view', compact('order','product_data'));
   }
 
   public function destroy($id)
@@ -81,5 +88,15 @@ class OrderDetailController extends Controller
     Mail::to($order->email)->send(new OrderMail($order));
 
     return response()->json(['success' => true, 'message' => 'Mail sent successfully!']);
+  }
+
+  public function order_status(Request $request, $id)
+  {
+    // dd($request->all());
+    $order = OrderDetail::findOrFail($id);
+$order->delivered = $request->input('delivery_status');
+    $order->save();
+
+    return redirect()->route('orders.show', $id)->with('success', 'Order status updated successfully.');
   }
 }

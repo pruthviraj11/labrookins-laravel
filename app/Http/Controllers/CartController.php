@@ -29,6 +29,7 @@ class CartController extends Controller
       $cart[$product->id]['quantity']++;
     } else {
       $cart[$product->id] = [
+        "id" => $product->id,
         "name" => $product->product_name,
         "price" => $product->product_price,
         "quantity" => 1,
@@ -37,6 +38,7 @@ class CartController extends Controller
     }
 
     session()->put('cart', $cart);
+
 
     return response()->json([
       'status' => 'success',
@@ -68,6 +70,7 @@ class CartController extends Controller
   public function checkout()
   {
     $cart = session()->get('cart', []);
+    // dd($cart);
     $home_banner = Banner::where('is_page', 1)->where('page', 'online_store')->where('status', 1)->first();
 
     return view('content/apps/checkout/index', compact('cart', 'home_banner'));
@@ -76,6 +79,7 @@ class CartController extends Controller
   public function place_order(Request $request)
   {
     $cart = session()->get('cart', []);
+    
     $guestId = session('guest_id');
 
     $rules = [
@@ -160,9 +164,22 @@ class CartController extends Controller
       $order = OrderDetail::create($orderData);
     }
 
-    // clear cart
-    // session()->forget('cart');
-    // session()->forget('guest_id');
+
+    // ✅ Store data in temp_addcart table
+    foreach ($cart as $item) {
+
+        \App\Models\TempAddcart::create([
+            'encrypted_id' => "", // or your own encryption logic
+            'guest_id' => $guestId,
+            'product_id' => $item['id'] ?? null,
+            'quntity' => $item['quantity'],
+            'price' => $item['price'],
+            'totalAmount' => $item['price'] * $item['quantity'],
+            'date' => Carbon::now()->toDateString(),
+            'order_status' => 'pending',
+            'order_date' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+    }
 
 
     $home_banner = Banner::where('is_page', 1)

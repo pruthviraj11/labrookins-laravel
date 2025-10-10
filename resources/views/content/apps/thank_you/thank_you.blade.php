@@ -19,3 +19,10 @@
         </div>
     </section>
 @endsection
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        localStorage.removeItem("guestId");
+        console.log("guest_id removed from localStorage");
+    });
+</script>
