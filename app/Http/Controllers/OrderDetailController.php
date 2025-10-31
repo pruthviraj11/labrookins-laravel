@@ -60,9 +60,10 @@ class OrderDetailController extends Controller
   {
     $order = $this->service->find($id);
     // dd($order->guest_id);
-    $product_data = TempAddcart::select('temp_addcart.*', 'products.product_name', 'products.product_description', 'products.product_image')
+    $product_data = TempAddcart::select('temp_addcart.*', 'products.product_name', 'products.product_description', 'products.product_image', 'products.product_digital')
     ->leftJoin('products', 'temp_addcart.product_id', '=', 'products.id')
     ->where('temp_addcart.guest_id', $order->guest_id)->get();
+    // dd($product_data,'Hii',$order);
     // dd($product_data);
     // $product_details =
     return view('content/apps/orders.view', compact('order','product_data'));

@@ -62,10 +62,10 @@
                 <div class="mb-3">
                     <label class="form-label">Product Description</label>
                     <!-- empty editor container; we'll populate via JS safely -->
-          <div id="editor" class="form-control">{!! old('product_description', $product->product_description ?? '') !!}</div>
+                    <div id="editor" class="form-control">{!! old('product_description', $product->product_description ?? '') !!}</div>
 
-{{-- <textarea name="product_description" id="product_description" class="d-none"></textarea> --}}
-<!-- hidden input that will be submitted -->
+                    {{-- <textarea name="product_description" id="product_description" class="d-none"></textarea> --}}
+                    <!-- hidden input that will be submitted -->
                     <input type="hidden" name="product_description" id="product_description"
                         value="{{ old('product_description', $product->product_description ?? '') }}">
                     <span class="text-danger">
@@ -117,12 +117,17 @@
                     @endif
                 </div>
 
-                <div class="form-check form-switch mb-3">
+                {{-- <div class="form-check form-switch mb-3">
                     <label class="form-check-label">Status</label>
                     <input class="form-check-input" type="checkbox" name="status" value="1"
                         {{ isset($product) && $product->status ? 'checked' : '' }}>
-                </div>
+                </div> --}}
 
+                <div class="form-check form-switch mb-3">
+                    <label class="form-check-label">Status</label>
+                    <input class="form-check-input" type="checkbox" name="status" value="1"
+                        {{ (isset($product) && $product->status) || !isset($product) ? 'checked' : '' }}>
+                </div>
                 <button type="submit" class="btn btn-primary">{{ isset($product) ? 'Update' : 'Save' }}</button>
                 <a href="{{ route('store.products.list') }}" class="btn btn-secondary">Cancel</a>
             </form>
@@ -134,39 +139,45 @@
     {{-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> --}}
 
 
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    var quill = new Quill('#editor', {
-        theme: 'snow',
-        placeholder: 'Enter product description...',
-        modules: {
-            toolbar: [
-                [{ header: [1, 2, false] }],
-                ['bold', 'italic', 'underline'],
-                ['link', 'blockquote', 'code-block', 'image'],
-                [{ list: 'ordered' }, { list: 'bullet' }]
-            ]
-        }
-    });
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var quill = new Quill('#editor', {
+                theme: 'snow',
+                placeholder: 'Enter product description...',
+                modules: {
+                    toolbar: [
+                        [{
+                            header: [1, 2, false]
+                        }],
+                        ['bold', 'italic', 'underline'],
+                        ['link', 'blockquote', 'code-block', 'image'],
+                        [{
+                            list: 'ordered'
+                        }, {
+                            list: 'bullet'
+                        }]
+                    ]
+                }
+            });
 
-    var textarea = document.getElementById('product_description');
+            var textarea = document.getElementById('product_description');
 
-    // set initial textarea value from editor
-    textarea.value = quill.root.innerHTML;
+            // set initial textarea value from editor
+            textarea.value = quill.root.innerHTML;
 
-    // 🔑 keep textarea updated whenever editor changes
-    quill.on('text-change', function () {
-      // alert('text change');
-        textarea.value = quill.root.innerHTML;
-    });
+            // 🔑 keep textarea updated whenever editor changes
+            quill.on('text-change', function() {
+                // alert('text change');
+                textarea.value = quill.root.innerHTML;
+            });
 
-    // safety net: also update on submit
-    document.querySelector('form').addEventListener('submit', function () {
-        textarea.value = quill.root.innerHTML;
-    });
-});
-</script>
+            // safety net: also update on submit
+            document.querySelector('form').addEventListener('submit', function() {
+                textarea.value = quill.root.innerHTML;
+            });
+        });
+    </script>
 
 
 @endsection

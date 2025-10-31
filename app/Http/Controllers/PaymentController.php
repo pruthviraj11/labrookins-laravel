@@ -90,17 +90,25 @@ class PaymentController extends Controller
 
         // Initialize totals
         $subtotal = 0;
-        $taxRate = 0.10; // 10%, or adjust as needed
-        $shipping = 8.95; // Fixed example shipping charge, replace with your logic if variable
+        $taxRate = 0.10; // 10%
+        $isAllDigital = true; // assume all digital until found otherwise
 
         foreach ($cartItems as $item) {
-          $lineTotal = $item['price'] * $item['quantity'];
-          $subtotal += $lineTotal;
+          $subtotal += $item['price'] * $item['quantity'];
+
+          // Check product type
+          $product = \App\Models\Product::find($item['id']);
+          if ($product && $product->product_digital !== 'yes') {
+            $isAllDigital = false; // at least one physical item
+          }
         }
+
+        // Set shipping charge based on product type
+        $shipping = $isAllDigital ? 0.00 : 8.95;
 
         $tax = $subtotal * $taxRate;
         $total = $subtotal + $tax + $shipping;
-
+        
         $digitalProducts = [];
 
         foreach ($cartItems as $productId => $item) {
@@ -114,10 +122,11 @@ class PaymentController extends Controller
         }
 
         $setting = Setting::first();
-        \Mail::to($setting->admin_order_email)->send(new \App\Mail\AdminOrderNotification($order, $cartItems, $subtotal, $tax, $shipping, $total));
+        // $setting->admin_order_email
+        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\AdminOrderNotification($order, $cartItems, $subtotal, $tax, $shipping, $total));
         // $order->email
-        \Mail::to($order->email)->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts, $cartItems, $subtotal, $tax, $shipping, $total));
-
+        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts, $cartItems, $subtotal, $tax, $shipping, $total));
+        // $order->email
         session()->forget('cart');
         session()->forget('guest_id');
         return redirect()->route('thank_you.page')->with('success', 'Payment successful! Transaction ID: ' . $tResponse->getTransId());

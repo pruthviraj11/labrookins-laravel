@@ -69,14 +69,16 @@
                             $subtotal = is_numeric($subtotal) ? floatval($subtotal) : 0;
 
                             $tax = round($subtotal * 0.1, 2); // 10% of subtotal
-                            $shipping = '8.95';
 
-                            // Compute total dynamically if not already in DB
-                            // $grandTotal = isset($order->total_amount)
-                            //     ? floatval($order->total_amount)
-                            //     : round($subtotal + $tax + $shipping, 2);
+                            // Determine shipping cost based on product type
+                            $hasPhysicalProduct = $product_data->contains(function ($product) {
+                                return $product->product_digital !== 'yes';
+                            });
 
-                                $grandTotal = $subtotal + $tax + $shipping;
+                            $shipping = $hasPhysicalProduct ? 8.95 : 0;
+
+                            // Compute total dynamically
+                            $grandTotal = $subtotal + $tax + $shipping;
                         @endphp
                         <table class="table table-borderless w-auto text-end">
                             <tbody>
@@ -161,20 +163,23 @@
                 <form action="{{ route('orders.order_status', $order->id) }}" method="POST" class="mt-4">
                     @csrf
                     <div class="row align-items-center">
-        <div class="col-md-4">
-            <label for="delivery_status" class="form-label">Delivered?</label>
-            <select class="form-select" name="delivery_status" id="delivery_status">
-                <option value="">Select Delivery Status</option>
-                <option value="pending" {{ $order->delivered == 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="delivered" {{ $order->delivered == 'delivered' ? 'selected' : '' }}>Delivered</option>
-                <option value="cancelled" {{ $order->delivered == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-            </select>
-        </div>
-        <div class="col-md-8 text-end mt-3 mt-md-0">
-            <button type="submit" class="btn btn-success me-2">Save</button>
-            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Discard</a>
-        </div>
-    </div>
+                        <div class="col-md-4">
+                            <label for="delivery_status" class="form-label">Delivered?</label>
+                            <select class="form-select" name="delivery_status" id="delivery_status">
+                                <option value="">Select Delivery Status</option>
+                                <option value="pending" {{ $order->delivered == 'pending' ? 'selected' : '' }}>Pending
+                                </option>
+                                <option value="delivered" {{ $order->delivered == 'delivered' ? 'selected' : '' }}>
+                                    Delivered</option>
+                                <option value="cancelled" {{ $order->delivered == 'cancelled' ? 'selected' : '' }}>
+                                    Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8 text-end mt-3 mt-md-0">
+                            <button type="submit" class="btn btn-success me-2">Save</button>
+                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Discard</a>
+                        </div>
+                    </div>
                 </form>
             </div>
 

@@ -30,7 +30,7 @@
         {{-- <h2 class="mb-4">Complete Payment</h2> --}}
         {{-- <div class="card p-4"> --}}
 
-        <h4>Order Total: ${{ number_format($order->total_amount, 2) }}</h4>
+      <h4>Order Total: ${{ number_format($order->total_amount, 2) }}</h4>
 
         <form action="{{ route('payment.process', $order->id) }}" method="POST">
             {{-- <form action="#" method="POST"> --}}

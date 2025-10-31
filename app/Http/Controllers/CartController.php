@@ -79,7 +79,7 @@ class CartController extends Controller
   public function place_order(Request $request)
   {
     $cart = session()->get('cart', []);
-    
+
     $guestId = session('guest_id');
 
     $rules = [
@@ -104,15 +104,38 @@ class CartController extends Controller
         'd_email' => 'required|email|max:255',
       ]);
     }
-      $validated = $request->validate($rules);
+    $validated = $request->validate($rules);
     // calculate total
 
+    // $grandTotal = 0;
+    // foreach ($cart as $item) {
+    //   $grandTotal += $item['price'] * $item['quantity'];
+    // }
+    // $tax = $grandTotal * 0.10;
+    // $total = $grandTotal + $tax + 8.95;
     $grandTotal = 0;
-    foreach ($cart as $item) {
-      $grandTotal += $item['price'] * $item['quantity'];
+    $isDigitalOnly = true;
+
+    if (!empty($cart)) {
+      // dd($cart);
+      // $productNames = collect($cart)->pluck('name')->toArray();
+      // $products = Product::whereIn('product_name', $productNames)->pluck('product_digital', 'product_name')->toArray();
+      $productNames = collect($cart)->pluck('id')->toArray();
+      $products = Product::whereIn('id', $productNames)->pluck('product_digital', 'product_name')->toArray();
+      foreach ($cart as $item) {
+        $total = $item['price'] * $item['quantity'];
+        $grandTotal += $total;
+
+        $isDigital = $products[$item['name']] ?? 'no';
+        if ($isDigital !== 'yes') {
+          $isDigitalOnly = false;
+        }
+      }
     }
+
+    $shippingCharge = $isDigitalOnly ? 0 : 8.95;
     $tax = $grandTotal * 0.10;
-    $total = $grandTotal + $tax + 8.95; // shipping
+    $total = $grandTotal + $tax + $shippingCharge;
 
     // prepare order data
     $orderData = [
@@ -168,17 +191,17 @@ class CartController extends Controller
     // ✅ Store data in temp_addcart table
     foreach ($cart as $item) {
 
-        \App\Models\TempAddcart::create([
-            'encrypted_id' => "", // or your own encryption logic
-            'guest_id' => $guestId,
-            'product_id' => $item['id'] ?? null,
-            'quntity' => $item['quantity'],
-            'price' => $item['price'],
-            'totalAmount' => $item['price'] * $item['quantity'],
-            'date' => Carbon::now()->toDateString(),
-            'order_status' => 'pending',
-            'order_date' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
+      \App\Models\TempAddcart::create([
+        'encrypted_id' => "", // or your own encryption logic
+        'guest_id' => $guestId,
+        'product_id' => $item['id'] ?? null,
+        'quntity' => $item['quantity'],
+        'price' => $item['price'],
+        'totalAmount' => $item['price'] * $item['quantity'],
+        'date' => Carbon::now()->toDateString(),
+        'order_status' => 'pending',
+        'order_date' => Carbon::now()->format('Y-m-d H:i:s'),
+      ]);
     }
 
 

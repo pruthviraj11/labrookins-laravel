@@ -135,8 +135,7 @@
                 <div class="col-lg-6 mb-4">
                     <div class="form-check mb-2">
                         <input class="form-check-input" type="checkbox" id="differentShipping"
-                            name="ship_to_different_address"
-                            {{ old('ship_to_different_address') ? 'checked' : '' }}>
+                            name="ship_to_different_address" {{ old('ship_to_different_address') ? 'checked' : '' }}>
                         <label class="form-check-label" for="differentShipping">Ship to a different address?</label>
                     </div>
 
@@ -233,48 +232,71 @@
                 <div class="col-12">
                     <div class="card p-3">
                         <h4 class="mb-3">Your Order</h4>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th class="text-end">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $grandTotal = 0; @endphp
-                                @if (session('cart') && count(session('cart')) > 0)
-                                    @foreach (session('cart') as $item)
-                                        @php
-                                            $total = $item['price'] * $item['quantity'];
-                                            $grandTotal += $total;
-                                        @endphp
-                                        <tr>
-                                            <td>{{ $item['name'] }} x {{ $item['quantity'] }}</td>
-                                            <td class="text-end">${{ number_format($total, 2) }}</td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                                <tr>
-                                    <th>Subtotal</th>
-                                    <th class="text-end">${{ number_format($grandTotal, 2) }}</th>
-                                </tr>
+                        @php
+                            use App\Models\Product;
 
-                                @php $tax = $grandTotal * 0.10; @endphp
-                                <tr>
-                                    <th>Total Tax (10%)</th>
-                                    <th class="text-end">${{ number_format($tax, 2) }}</th>
-                                </tr>
+                            $grandTotal = 0;
+                            $isDigitalOnly = true; // assume all products are digital
 
-                                <tr>
-                                    <th>Shipping</th>
-                                    <th class="text-end">${{ number_format(8.95, 2) }}</th>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <th class="text-end">${{ number_format($grandTotal + $tax + 8.95, 2) }}</th>
-                                </tr>
-                            </tbody>
-                        </table>
+                            if (session('cart') && count(session('cart')) > 0) {
+                                foreach (session('cart') as $item) {
+                                    $total = $item['price'] * $item['quantity'];
+                                    $grandTotal += $total;
+
+                                    // Check product type from database
+                                    $product = Product::where('product_name', $item['name'])->first();
+                                    if ($product && $product->product_digital !== 'yes') {
+                                        $isDigitalOnly = false; // found a physical product
+                                    }
+                                }
+                            }
+
+                            $shippingCharge = $isDigitalOnly ? 0 : 8.95;
+                            $tax = $grandTotal * 0.1; // 10% tax
+                            $finalTotal = $grandTotal + $tax + $shippingCharge;
+                        @endphp
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th class="text-end">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (session('cart') && count(session('cart')) > 0)
+            @foreach (session('cart') as $item)
+                @php
+                    $total = $item['price'] * $item['quantity'];
+                @endphp
+                <tr>
+                    <td>{{ $item['name'] }} x {{ $item['quantity'] }}</td>
+                    <td class="text-end">${{ number_format($total, 2) }}</td>
+                </tr>
+            @endforeach
+        @endif
+
+        <tr>
+            <th>Subtotal</th>
+            <th class="text-end">${{ number_format($grandTotal, 2) }}</th>
+        </tr>
+
+        <tr>
+            <th>Total Tax (10%)</th>
+            <th class="text-end">${{ number_format($tax, 2) }}</th>
+        </tr>
+
+        <tr>
+            <th>Shipping</th>
+            <th class="text-end">${{ number_format($shippingCharge, 2) }}</th>
+        </tr>
+
+        <tr>
+            <th>Total</th>
+            <th class="text-end">${{ number_format($finalTotal, 2) }}</th>
+        </tr>
+    </tbody>
+</table>
                         <button type="submit" class="btn btn-primary w-100" style="background-color: #0072cf">Place
                             Order</button>
                     </div>
@@ -285,7 +307,7 @@
 
     @push('scripts')
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 const checkbox = document.getElementById('differentShipping');
                 const shippingFields = document.getElementById('shippingFields');
 
@@ -293,7 +315,7 @@
                 shippingFields.classList.toggle('d-none', !checkbox.checked);
 
                 // On change → toggle visibility
-                checkbox.addEventListener('change', function () {
+                checkbox.addEventListener('change', function() {
                     shippingFields.classList.toggle('d-none', !this.checked);
                 });
             });

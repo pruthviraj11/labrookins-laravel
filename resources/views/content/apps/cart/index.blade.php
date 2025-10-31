@@ -96,27 +96,47 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h4 class="card-title mb-3">Order Summary</h4>
+
+                            @php
+
+                                $cart = session('cart');
+                                $isDigitalOnly = true; // assume all are digital initially
+
+                                if ($cart) {
+                                    foreach ($cart as $item) {
+                                        $product = App\Models\Product::where('product_name', $item['name'])->first();
+                                        if ($product && $product->product_digital !== 'yes') {
+                                            $isDigitalOnly = false;
+                                            break; // no need to check further if one product is not digital
+                                        }
+                                    }
+                                }
+
+                                $shippingCharge = $isDigitalOnly ? 0 : 8.95;
+                                $tax = $grandTotal * 0.1; // 10% tax
+                                $total = $grandTotal + $tax + $shippingCharge;
+                            @endphp
+
+
                             <ul class="list-group list-group-flush mb-3">
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Subtotal</span>
                                     <span>${{ number_format($grandTotal, 2) }}</span>
                                 </li>
 
-
-                                @php
-                                    $tax = $grandTotal * 0.1; // 10% tax
-                                @endphp
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Tax (10%)</span>
                                     <span>${{ number_format($tax, 2) }}</span>
                                 </li>
+
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Shipping</span>
-                                    <span>$8.95</span>
+                                    <span>${{ number_format($shippingCharge, 2) }}</span>
                                 </li>
+
                                 <li class="list-group-item d-flex justify-content-between fw-bold">
                                     <span>Total</span>
-                                    <span>${{ number_format($grandTotal + $tax + 8.95, 2) }}</span>
+                                    <span>${{ number_format($total, 2) }}</span>
                                 </li>
                             </ul>
                             <a href="{{ route('checkout.index') }}" class="btn btn-success w-100">Proceed to Checkout</a>
