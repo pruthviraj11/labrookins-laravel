@@ -61,12 +61,12 @@ class OrderDetailController extends Controller
     $order = $this->service->find($id);
     // dd($order->guest_id);
     $product_data = TempAddcart::select('temp_addcart.*', 'products.product_name', 'products.product_description', 'products.product_image', 'products.product_digital')
-    ->leftJoin('products', 'temp_addcart.product_id', '=', 'products.id')
-    ->where('temp_addcart.guest_id', $order->guest_id)->get();
+      ->leftJoin('products', 'temp_addcart.product_id', '=', 'products.id')
+      ->where('temp_addcart.guest_id', $order->guest_id)->get();
     // dd($product_data,'Hii',$order);
     // dd($product_data);
     // $product_details =
-    return view('content/apps/orders.view', compact('order','product_data'));
+    return view('content/apps/orders.view', compact('order', 'product_data'));
   }
 
   public function destroy($id)
@@ -84,9 +84,12 @@ class OrderDetailController extends Controller
   {
     $order = OrderDetail::findOrFail($id);
 
+    $product_data = TempAddcart::select('temp_addcart.*', 'products.product_name', 'products.product_description', 'products.product_image', 'products.product_digital')
+      ->leftJoin('products', 'temp_addcart.product_id', '=', 'products.id')
+      ->where('temp_addcart.guest_id', $order->guest_id)->get();
     // Send mail
     // dd($order->email);
-    Mail::to($order->email)->send(new OrderMail($order));
+    Mail::to($order->email)->send(new OrderMail($order, $product_data));
 
     return response()->json(['success' => true, 'message' => 'Mail sent successfully!']);
   }
@@ -95,7 +98,7 @@ class OrderDetailController extends Controller
   {
     // dd($request->all());
     $order = OrderDetail::findOrFail($id);
-$order->delivered = $request->input('delivery_status');
+    $order->delivered = $request->input('delivery_status');
     $order->save();
 
     return redirect()->route('orders.show', $id)->with('success', 'Order status updated successfully.');
