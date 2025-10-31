@@ -108,7 +108,7 @@ class PaymentController extends Controller
 
         $tax = $subtotal * $taxRate;
         $total = $subtotal + $tax + $shipping;
-        
+
         $digitalProducts = [];
 
         foreach ($cartItems as $productId => $item) {
@@ -123,9 +123,9 @@ class PaymentController extends Controller
 
         $setting = Setting::first();
         // $setting->admin_order_email
-        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\AdminOrderNotification($order, $cartItems, $subtotal, $tax, $shipping, $total));
+        \Mail::to($setting->admin_order_email)->send(new \App\Mail\AdminOrderNotification($order, $cartItems, $subtotal, $tax, $shipping, $total));
         // $order->email
-        \Mail::to('yrabadia99@gmail.com')->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts, $cartItems, $subtotal, $tax, $shipping, $total));
+        \Mail::to($order->email)->send(new \App\Mail\OrderPaidNotification($order, $digitalProducts, $cartItems, $subtotal, $tax, $shipping, $total));
         // $order->email
         session()->forget('cart');
         session()->forget('guest_id');
