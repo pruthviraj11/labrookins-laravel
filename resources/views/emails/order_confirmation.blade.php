@@ -17,10 +17,9 @@
                     <!-- Header -->
                     <tr>
                         <td
-                            style="padding:40px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;border-radius:12px 12px 0 0;text-align:center;">
-                            {{-- <div style="font-size:48px;line-height:1.2;">🎉</div> --}}
-                            <h1 style="font-size:28px;font-weight:700;margin:10px 0;">Payment Successful!</h1>
-                            <p style="font-size:16px;margin:0;">Order #{{ $order->id }}</p>
+                            style="padding:40px; background:#667eea; color:#fff; border-radius:12px 12px 0 0; text-align:center;">
+                            <h1 style="font-size:28px; font-weight:700; margin:10px 0;">Payment Successful!</h1>
+                            <p style="font-size:16px; margin:0;">Order #{{ $order->id }}</p>
                         </td>
                     </tr>
 
@@ -136,7 +135,7 @@
                                                             style="height:120px;">
                                                             No Image
                                                         </div>
-                                                        {{ " " . $item['name'] }}
+                                                        {{ ' ' . $item['name'] }}
                                                     @endif
                                                 </td>
                                                 <td style="padding: 12px; text-align:center;">{{ $item['quantity'] }}
