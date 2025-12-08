@@ -20,14 +20,44 @@ class ProductController extends Controller
 
   public function index()
   {
-    return view('content/apps/products.list');
+     $categories = Category::orderBy('title','ASC')->get();
+    return view('content/apps/products.list',compact('categories'));
   }
 
   public function getAll(Request $request)
   {
     // dd(Product::count());
-    if ($request->ajax()) {
-      return datatables()->of($this->service->getAll())
+    if ($request->ajax()) 
+      {
+          //$query = $this->service->getAll();
+          //$query = Product::with('category')->orderBy('product_name','ASC')->get();
+         
+          $query = Product::with('category');
+           // Filter: Category
+        if ($request->category) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Filter: Product Type
+        if ($request->product_type) {
+            $query->where('product_digital', $request->product_type);
+        }
+
+        // Filter: Price
+        if ($request->price) {
+            $query->where('product_price', 'LIKE', "%{$request->price}%");
+        }
+
+        // Filter: Status
+        if (!is_null($request->status) && $request->status !== "") {
+             $query->where('status', $request->status);
+        }
+        $query->orderBy('product_name', 'ASC');
+
+      return datatables()->of($query)
+        ->addColumn('checkbox', function ($row) {
+        return '<input type="checkbox" class="product_row_checkbox" value="' . $row->id . '">';
+    })
         ->addColumn('category', fn($row) => $row->category?->title ?? '-')
         ->addColumn('status', fn($row) => $row->status ? '<span class="badge bg-label-success">Active</span>' : '<span class="badge bg-label-danger">Inactive</span>')
         ->addColumn('product_type', function ($row) {
@@ -53,7 +83,7 @@ class ProductController extends Controller
                     </form>
                 ';
         })
-        ->rawColumns(['status', 'product_type', 'actions'])
+        ->rawColumns(['checkbox','status', 'product_type', 'actions'])
         ->make(true);
     }
   }
@@ -129,5 +159,18 @@ class ProductController extends Controller
     $this->service->delete($encrypted_id);
     return response()->json(['success' => 'Product deleted successfully.']);
   }
+
+  /*--- Delete Multiple Products ----*/
+public function deleteMultiProduct(Request $request)
+{
+    $ids = $request->ids;
+   
+    Product::whereIn('id', $request->ids)->delete();
+
+    return response()->json([
+        'status' => true, 
+        'message' => 'Deleted successfully'
+    ]);
+} 
 }
 

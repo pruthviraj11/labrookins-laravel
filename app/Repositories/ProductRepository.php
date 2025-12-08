@@ -9,7 +9,12 @@ class ProductRepository
     public function getAll()
     {
       // dd(Product::with('category')->latest()->get());
-        return Product::with('category')->latest()->get();
+        //return Product::with('category')->latest()->get();
+
+        return Product::with('category')->orderBy('product_name','ASC')->get();
+
+        //return Product::with('category')->orderBy('product_name','ASC');
+
     }
 
     public function findByEncryptedId($encrypted_id)

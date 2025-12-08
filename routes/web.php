@@ -609,6 +609,8 @@ Route::prefix('store')->middleware(['auth'])->group(function () {
   Route::get('products/edit/{encrypted_id}', [ProductController::class, 'edit'])->name('store.products.edit');
   Route::put('products/update/{encrypted_id}', [ProductController::class, 'update'])->name('store.products.update');
   Route::delete('products/destroy/{encrypted_id}', [ProductController::class, 'destroy'])->name('store.products.destroy');
+  Route::post('products/product/delete',[ProductController::class, 'deleteMultiProduct'])->name('delete_multi_products');
+
 });
 
 Route::prefix('app')->middleware('auth')->group(function () {
