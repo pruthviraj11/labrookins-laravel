@@ -48,6 +48,8 @@ class OrderDetail extends Model
     'status',
     'delivered',
     'date_and_time',
-    'deleted_at'
+    'deleted_at',
+    'created_at',
+    'updated_at',
   ];
 }

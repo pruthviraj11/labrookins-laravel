@@ -20,12 +20,30 @@ class OrderDetailController extends Controller
 
   public function index(Request $request)
   {
-    // dd($request->all());
+    //  $orderDetails = OrderDetail::all();
+    
+    //  foreach($orderDetails as $orderDetail)
+    //  {
+    //      $odate = $orderDetail->date_and_time;
+
+        
+
+    //       $orderDetail->update([
+    //           'created_at' => $odate,
+    //           'updated_at' => $odate,
+    //       ]);
+   
+    //  } 
+
+   
+    //  exit;
+
+    
     if ($request->ajax()) {
       $orders = OrderDetail::select('*')->orderBy('date_and_time', 'desc');
       return DataTables::of($orders)
-        ->addColumn('name', function ($row) {
-          return $row->fname . ' ' . $row->lname;
+        ->addColumn('fname', function ($row) {
+          return $row->fname. ' ' .$row->lname;
         })
         ->addColumn('address', function ($row) {
           return $row->street_address1 . ', ' . $row->city . ', ' . $row->state;
@@ -58,6 +76,7 @@ class OrderDetailController extends Controller
 
   public function show($id)
   {
+    
     $order = $this->service->find($id);
     // dd($order->guest_id);
     $product_data = TempAddcart::select('temp_addcart.*', 'products.product_name', 'products.product_description', 'products.product_image', 'products.product_digital')
@@ -96,7 +115,7 @@ class OrderDetailController extends Controller
 
   public function order_status(Request $request, $id)
   {
-    // dd($request->all());
+    
     $order = OrderDetail::findOrFail($id);
     $order->delivered = $request->input('delivery_status');
     $order->save();
