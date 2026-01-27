@@ -77,7 +77,7 @@
                 @foreach ($books as $book)
                     <div class="col-md-3 mt-3 product">
                         <a href="#">
-                            <img src="{{ asset('storage/products/' . $book->product_image) }}"
+                            <img src="{{ asset('storage/' . $book->product_image) }}"
                                 alt="{{ $book->product_name }}" height="375px">
                             <h2 class="product__title">{{ $book->product_name }}</h2>
                             <span class="price">${{ number_format($book->product_price, 2) }}</span>

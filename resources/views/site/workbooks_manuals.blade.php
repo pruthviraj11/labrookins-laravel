@@ -76,8 +76,13 @@
                         @if ($book->product_image)
                             <a href="#">
                                 {{-- <a href="{{ route('product.show', $book->id) }}"> --}}
-                                <img src="{{ asset('storage/products/' . $book->product_image) }}" class="img-fluid"
+                                {{-- <img src="{{ asset('storage/products/' . $book->product_image) }}" class="img-fluid"
+                                    height="375px" alt="{{ $book->product_name }}"> --}}
+
+                                    <img src="{{ asset('storage/' . $book->product_image) }}" class="img-fluid"
                                     height="375px" alt="{{ $book->product_name }}">
+
+
                                 <h2 class="product__title">{{ $book->product_name }}</h2>
                                 <span class="price">${{ number_format($book->product_price, 2) }}</span>
                             </a>

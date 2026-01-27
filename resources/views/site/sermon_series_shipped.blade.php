@@ -69,8 +69,12 @@
                 <div class="col-md-3 mt-3 product">
                     @if ($book->product_image)
                         <a href="#">
-                            <img src="{{ asset('storage/products/' . $book->product_image) }}" height="375px"
+                            {{-- <img src="{{ asset('storage/products/' . $book->product_image) }}" height="375px"
+                                alt="{{ $book->product_name }}"> --}}
+
+                            <img src="{{ asset('storage/' . $book->product_image) }}" height="375px"
                                 alt="{{ $book->product_name }}">
+
                         </a>
                     @endif
                     <h2 class="product__title">{{ $book->product_name }}</h2>

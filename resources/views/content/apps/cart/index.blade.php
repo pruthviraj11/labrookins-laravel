@@ -57,7 +57,7 @@
                             <div class="row g-0 align-items-center p-3">
                                 <div class="col-md-3 text-center">
                                     @php
-                                        $imagePath = 'storage/products/' . $item['image'];
+                                        $imagePath = 'storage/' . $item['image'];
                                     @endphp
                                     @if (!empty($item['image']) && file_exists(public_path($imagePath)))
                                         <img src="{{ asset($imagePath) }}" alt="{{ $item['name'] }}"
