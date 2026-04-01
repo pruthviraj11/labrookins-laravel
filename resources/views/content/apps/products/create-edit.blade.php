@@ -112,8 +112,15 @@
                     <label class="form-label">Files (Download Document)</label>
                     <input type="file" name="download_document" class="form-control">
                     @if (isset($product) && $product->download_document)
-                        <a href="{{ Storage::url($product->download_document) }}" target="_blank"
-                            class="d-block mt-2">Download Existing File</a>
+                        <div class="mt-2 d-flex align-items-center">
+                            <i class="ti ti-file-description ti-md text-primary me-2"></i>
+                            <div>
+                                <small class="text-muted d-block">Current File:</small>
+                                <a href="{{ Storage::url($product->download_document) }}" target="_blank" class="fw-bold">
+                                    {{ basename($product->download_document) }}
+                                </a>
+                            </div>
+                        </div>
                     @endif
                 </div>
 

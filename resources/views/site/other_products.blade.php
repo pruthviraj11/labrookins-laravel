@@ -74,7 +74,7 @@
                 @forelse($books as $book)
                     <div class="col-md-3 mt-3 product">
                         @if ($book->product_image)
-                            <a href="{{ route('product.show', $book->id) }}">
+                            <a href="#">
                                 <img src="{{ asset('storage/' . $book->product_image) }}" class="img-fluid" height="375px"
                                     alt="{{ $book->product_name }}">
                                 <h2 class="product__title">{{ $book->product_name }}</h2>

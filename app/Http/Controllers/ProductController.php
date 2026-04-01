@@ -8,6 +8,7 @@ use App\Services\ProductService;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -112,7 +113,7 @@ class ProductController extends Controller
       $data['download_document'] = $request->file('download_document')->store('products/docs', 'public');
       $data['product_digital'] = 'yes';
     } else {
-      $data['product_digital'] = 'no'; // default
+      $data['product_digital'] = 'no';
     }
     $this->service->store($data);
 
@@ -141,11 +142,14 @@ class ProductController extends Controller
     if ($request->hasFile('product_image')) {
       $data['product_image'] = $request->file('product_image')->store('products', 'public');
     }
+
+    $product = $this->service->find($encrypted_id);
+
     if ($request->hasFile('download_document')) {
       $data['download_document'] = $request->file('download_document')->store('products/docs', 'public');
       $data['product_digital'] = 'yes';
     } else {
-      $data['product_digital'] = 'no'; // default
+      $data['product_digital'] = ($product && $product->download_document) ? 'yes' : 'no';
     }
 
     $this->service->update($encrypted_id, $data);
@@ -157,7 +161,7 @@ class ProductController extends Controller
   {
     // dd($encrypted_id);
     $this->service->delete($encrypted_id);
-    return response()->json(['success' => 'Product deleted successfully.']);
+    return redirect()->route('store.products.list')->with('success', 'Product deleted successfully.');
   }
 
   /*--- Delete Multiple Products ----*/
@@ -172,5 +176,90 @@ public function deleteMultiProduct(Request $request)
         'message' => 'Deleted successfully'
     ]);
 } 
+
+public function updateProductsList()
+{
+    // Define external connection for labrooking_laravel_01_04_2026
+    config(['database.connections.mysql_external' => array_merge(config('database.connections.mysql'), [
+        'database' => 'labrooking_laravel_01_04_2026'
+    ])]);
+    
+    $sourceProducts = Product::all();
+    $updatedInfo = [];
+
+    foreach ($sourceProducts as $source) {
+        $target = DB::connection('mysql_external')->table('products')
+            ->where('product_name', $source->product_name)
+            ->where('category_id', $source->category_id)
+            ->first();
+
+        if ($target) {
+            $hasChange = false;
+            $rowChange = [
+                'id' => $source->id,
+                'name' => $source->product_name,
+                'category_id' => $source->category_id,
+                'price' => ['before' => $target->product_price, 'after' => $source->product_price],
+                'discount' => ['before' => $target->product_discount_price, 'after' => $source->product_discount_price],
+                'document' => ['before' => $target->download_document, 'after' => $source->download_document],
+                'digital' => ['before' => $target->product_digital, 'after' => $source->product_digital],
+            ];
+
+            if ($target->product_price != $source->product_price || 
+                $target->product_discount_price != $source->product_discount_price ||
+                $target->download_document != $source->download_document ||
+                $target->product_digital != $source->product_digital) 
+            {
+                $hasChange = true;
+            }
+
+            if ($hasChange) {
+                $updatedInfo[] = $rowChange;
+            }
+        }
+    }
+
+    return view('content.apps.products.update_result', compact('updatedInfo'));
+}
+
+public function syncProductsList()
+{
+    // Define external connection for labrooking_laravel_01_04_2026
+    config(['database.connections.mysql_external' => array_merge(config('database.connections.mysql'), [
+        'database' => 'labrooking_laravel_01_04_2026'
+    ])]);
+    
+    $sourceProducts = Product::all();
+    $syncCount = 0;
+
+    foreach ($sourceProducts as $source) {
+        $target = DB::connection('mysql_external')->table('products')
+            ->where('product_name', $source->product_name)
+            ->where('category_id', $source->category_id)
+            ->first();
+
+        if ($target) {
+            // Compare and update if different
+            if ($target->product_price != $source->product_price || 
+                $target->product_discount_price != $source->product_discount_price ||
+                $target->download_document != $source->download_document ||
+                $target->product_digital != $source->product_digital) 
+            {
+                DB::connection('mysql_external')->table('products')
+                    ->where('id', $target->id)
+                    ->update([
+                        'product_price' => $source->product_price,
+                        'product_discount_price' => $source->product_discount_price,
+                        'download_document' => $source->download_document,
+                        'product_digital' => $source->product_digital,
+                        'updated_at' => now()
+                    ]);
+                $syncCount++;
+            }
+        }
+    }
+
+    return redirect()->route('store.products.list')->with('success', "Successfully synchronized $syncCount products between databases.");
+}
 }
 
