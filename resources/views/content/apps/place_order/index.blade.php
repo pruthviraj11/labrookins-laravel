@@ -32,9 +32,26 @@
 
       <h4>Order Total: ${{ number_format($order->total_amount, 2) }}</h4>
 
-        <form action="{{ route('payment.process', $order->id) }}" method="POST">
-            {{-- <form action="#" method="POST"> --}}
+        {{-- Validation Errors --}}
+        @if ($errors->any())
+            <div class="alert alert-danger mt-3">
+                <strong>Please fix the following errors:</strong>
+                <ul class="mb-0 mt-2">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
+        {{-- Session Payment Error --}}
+        @if (session('payment_error'))
+            <div class="alert alert-danger mt-3">
+                <strong>Payment Error:</strong> {{ session('payment_error') }}
+            </div>
+        @endif
+
+        <form action="{{ route('payment.process', $order->id) }}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-md-6 mb-4">

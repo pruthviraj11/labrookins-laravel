@@ -195,6 +195,7 @@ Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.index');
 Route::post('/place_order', [CartController::class, 'place_order'])->name('place_order.index');
+Route::get('/payment/form/{orderId}', [CartController::class, 'showPaymentForm'])->name('payment.form');
 
 Route::post('/payment/process/{order}', [PaymentController::class, 'processPayment'])->name('payment.process');
 Route::get('/thank_you', [CartController::class, 'thank_you'])->name('thank_you.page');

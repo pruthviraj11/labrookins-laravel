@@ -173,13 +173,18 @@ class CartController extends Controller
       'date_and_time' => Carbon::now(),
     ];
 
-    // check if guest_id already has pending order
-    $existingOrder = OrderDetail::where('guest_id', $guestId)
+    // check if guest_id already has pending order (including soft-deleted ones)
+    $existingOrder = OrderDetail::withTrashed()
+      ->where('guest_id', $guestId)
       ->where('order_type', 'Pending')
+      ->latest()
       ->first();
 
     if ($existingOrder) {
-      // update existing order
+      // restore if soft-deleted, then update
+      if ($existingOrder->trashed()) {
+        $existingOrder->restore();
+      }
       $existingOrder->update($orderData);
       $order = $existingOrder;
     } else {
@@ -204,6 +209,20 @@ class CartController extends Controller
       ]);
     }
 
+
+    // ✅ PRG Pattern: Redirect to GET route to prevent refresh errors
+    return redirect()->route('payment.form', $order->id);
+  }
+
+  // ✅ GET route handler for payment form (prevents refresh MethodNotAllowed error)
+  public function showPaymentForm($orderId)
+  {
+    $order = OrderDetail::withTrashed()->findOrFail($orderId);
+
+    // Restore if soft-deleted
+    if ($order->trashed()) {
+      $order->restore();
+    }
 
     $home_banner = Banner::where('is_page', 1)
       ->where('page', 'online_store')
