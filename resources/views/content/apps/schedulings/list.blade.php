@@ -11,6 +11,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
 
 @section('content')
@@ -37,7 +38,7 @@
                                 <th>State</th>
                                 <th>Mobile</th>
                                 <th>Email</th>
-
+                                <th>Actions</th>
                                 <th>Created At</th>
                             </tr>
                         </thead>
@@ -88,18 +89,43 @@
                         name: 'email'
                     },
                     {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
                         data: 'created_at',
                         name: 'created_at',
                         visible: false
                     }
                 ],
                 order: [
-                    [8, 'desc']
+                    [9, 'desc']
                 ], // order by created_at
                 drawCallback: function() {
                     feather.replace();
                     $('[data-bs-toggle="tooltip"]').tooltip();
                 }
+            });
+
+            $(document).on("click", ".confirm-delete", function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This action cannot be undone!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;
+                    }
+                });
             });
         });
     </script>

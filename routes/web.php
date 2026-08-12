@@ -575,6 +575,7 @@ Route::post('settings', [SettingController::class, 'store'])->name('settings.sto
 Route::prefix('schedulings')->group(function () {
   Route::get('/', [SchedulingController::class, 'index'])->name('schedulings.index');
   Route::post('/scheduling-submit', [SchedulingController::class, 'store'])->name('scheduling.submit');
+  Route::get('/destroy/{encrypted_id}', [SchedulingController::class, 'destroy'])->name('schedulings.delete');
 });
 
 Route::prefix('home')->middleware(['auth'])->group(function () {

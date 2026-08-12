@@ -15,6 +15,12 @@ class SchedulingController extends Controller
       $data = Scheduling::latest()->get();
       return DataTables::of($data)
         ->addIndexColumn()
+        ->addColumn('actions', function ($row) {
+          $encryptedId = encrypt($row->id);
+          $delete = "<a href='" . route('schedulings.delete', $encryptedId) . "' class='btn-sm text-danger confirm-delete' data-bs-toggle='tooltip' title='Delete'><i data-feather='trash-2'></i></a>";
+          return $delete;
+        })
+        ->rawColumns(['actions'])
         ->make(true);
     }
 
@@ -81,5 +87,13 @@ class SchedulingController extends Controller
     return back()->with('success', 'Your scheduling request has been submitted successfully!');
   }
 
+  public function destroy($encrypted_id)
+  {
+    $id = decrypt($encrypted_id);
+    $scheduling = Scheduling::findOrFail($id);
+    $scheduling->delete();
+
+    return redirect()->route('schedulings.index')->with('success', 'Scheduling request deleted successfully.');
+  }
 }
 
